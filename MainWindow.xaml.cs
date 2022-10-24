@@ -10,7 +10,7 @@ namespace TravelPal
         public MainWindow()
         {
             InitializeComponent();
-            ///First commit
+            ///Second commit
         }
     }
 }
