@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using TravelPal.Travels;
 
-namespace TravelPal
+namespace TravelPal.Managers
 {
-    internal class TravelManager
+    public class TravelManager
     {
         public List<Travel> Travels { get; set; }
 

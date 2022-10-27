@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TravelPal.Enums;
+using TravelPal.Travels;
 
 namespace TravelPal.Models
 {

@@ -1,0 +1,98 @@
+﻿<Window x:Class="TravelPal.TravelsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+        mc:Ignorable="d"
+        Title="TravelsWindow" Height="450" Width="700"
+        Background="MediumSlateBlue">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            FontSize="50"
+            Content="TravelPal ©"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        <Button
+            Name="btnHelp"
+            Content="?"
+            Grid.Column="0"
+            Grid.Row="0"
+            Height="20"
+            Width="20"
+            Click="btnHelp_Click"/>
+        <Button
+            Name="btnUser"
+            Content="User"
+            Grid.Column="1"
+            Grid.Row="0"
+            Height="20"
+            Width="50"
+            Click="btnUser_Click"/>
+        <Label
+            Name="lblWelcome"
+            Content="Welcome User"
+            FontSize="30"
+            Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="5"/>
+        <ListView
+            Name="lvTravels"
+            Grid.Column="1"
+            Grid.Row="2"
+            Grid.ColumnSpan="5"
+            SelectionChanged="lvTravels_SelectionChanged"/>
+        <Button
+            Name="btnAddTravel"
+            Grid.Column="1"
+            Grid.Row="4"
+            Height="30"
+            Width="80"
+            Content="Add Travel"
+            Click="btnAddTravel_Click"/>
+        <Button
+            Name="btnDetailsTravel"
+            IsEnabled="False"
+            Grid.Column="2"
+            Grid.Row="4"
+            Height="30"
+            Width="80"
+            Content="Details"
+            Click="btnDetailsTravel_Click"/>
+        <Button
+            Name="btnRemoveTravel"
+            IsEnabled="False"
+            Grid.Column="3"
+            Grid.Row="4"
+            Height="30"
+            Width="120"
+            Content="Remove Travel"
+            Click="btnRemoveTravel_Click"/>
+        <Button
+            Name="btnSignOut"
+            Grid.Column="6"
+            Grid.Row="0"
+            Height="30"
+            Width="60"
+            Content="Sign Out"
+            Click="btnSignOut_Click" />
+    </Grid>
+</Window>

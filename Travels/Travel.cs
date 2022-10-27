@@ -1,7 +1,6 @@
-﻿using System;
-using TravelPal.Enums;
+﻿using TravelPal.Enums;
 
-namespace TravelPal
+namespace TravelPal.Travels
 {
     public class Travel
     {
@@ -9,19 +8,18 @@ namespace TravelPal
         public Countries Country { get; set; }
         public int Travellers { get; set; }
         //public List<PackingListItem> PackingList { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int TravelDays { get; set; }
+        //public DateTime StartDate { get; set; }
+        //public DateTime EndDate { get; set; }
+        //public int TravelDays { get; set; }
 
-        public Travel(string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, int travelDays)
+        public Travel(string destination, Countries country, int travellers)
         {
             Destination = destination;
             Country = country;
             Travellers = travellers;
             //PackingList = packingList;
-            StartDate = startDate;
-            EndDate = endDate;
-            TravelDays = travelDays;
+            //StartDate = startDate;
+            //EndDate = endDate;
         }
         private int CalculateTravelDays()
         {
