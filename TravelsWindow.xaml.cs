@@ -35,14 +35,13 @@ namespace TravelPal
 
         private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            ChangeButtons(true);
         }
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             AddTravelWindow addTravelWindow = new(travelManager, currentUser);
             addTravelWindow.Show();
-            this.Hide();
         }
 
         private void btnDetailsTravel_Click(object sender, RoutedEventArgs e)
@@ -52,7 +51,14 @@ namespace TravelPal
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-
+            ListViewItem currentSelection = new();
+            currentSelection = (ListViewItem)lvTravels.SelectedItem;
+            Travel currentTravel = (Travel)currentSelection.Tag;
+            //ta bort från user och manager
+            currentUser.Travels.Remove(currentTravel);
+            travelManager.RemoveTravel(currentTravel);
+            RefreshTravelList();
+            ChangeButtons(false);
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -66,15 +72,20 @@ namespace TravelPal
             foreach (Travel travel in currentUser.Travels)
             {
                 ListViewItem newItem = new();
-                newItem.Content = travel.Destination;
+                newItem.Content = travel.Country;
                 newItem.Tag = travel;
                 lvTravels.Items.Add(newItem);
             }
         }
-        private void DisableButtons()
+        private void ChangeButtons(bool toggle)
         {
-            btnDetailsTravel.IsEnabled = false;
-            btnRemoveTravel.IsEnabled = false;
+            btnDetailsTravel.IsEnabled = toggle;
+            btnRemoveTravel.IsEnabled = toggle;
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshTravelList();
         }
     }
 }

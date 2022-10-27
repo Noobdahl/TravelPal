@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
         Title="TravelsWindow" Height="450" Width="700"
-        Background="MediumSlateBlue">
+        Background="MediumSlateBlue"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -94,5 +95,12 @@
             Width="60"
             Content="Sign Out"
             Click="btnSignOut_Click" />
+        <Button
+            Name="btnRefresh"
+            Grid.Column="5"
+            Grid.Row="3"
+            Height="30"
+            Content="Refresh"
+            Click="btnRefresh_Click"/>
     </Grid>
 </Window>

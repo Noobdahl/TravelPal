@@ -23,6 +23,9 @@ namespace TravelPal
             User user = new();
             user.IUser("Gandalf", "password", Countries.Sweden);
             userManager.AddUser(user);
+            User user2 = new();
+            user.IUser("qwe", "asd", Countries.Sweden);
+            userManager.AddUser(user);
 
             ///Second commit
         }
