@@ -16,9 +16,9 @@ namespace TravelPal
     public partial class AddTravelWindow : Window
     {
         TravelManager travelManager;
-        User currentUser;
+        IUser currentUser;
         string TripReason = "";
-        public AddTravelWindow(TravelManager tManager, User cUser)
+        public AddTravelWindow(TravelManager tManager, IUser cUser)
         {
             InitializeComponent();
             travelManager = tManager;
@@ -29,9 +29,8 @@ namespace TravelPal
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             string inputDestination = tbDestination.Text;
-            string cbCountryTrimmed = cbCountry.Text.Replace(" ", "_");
             int inputTravellers = Convert.ToInt32(tbTravellers.Text);
-            Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountryTrimmed);
+            Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
 
             if (TripReason == "Vacation")
             {
@@ -74,8 +73,8 @@ namespace TravelPal
         }
         private void AddNClose(Travel travel)
         {
-            currentUser.Travels.Add(travel);
-            travelManager.AddTravel(travel);
+            currentUser.GetTravels().Add(travel);
+            //travelManager.AddTravel(travel);
             this.Close();
         }
         private void FillComboBoxes()

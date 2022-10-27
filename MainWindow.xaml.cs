@@ -17,7 +17,7 @@ namespace TravelPal
             InitializeComponent();
             userManager = new();
             travelManager = new();
-            Admin admin = new();
+            Admin admin = new(travelManager, userManager);
             admin.IUser("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
             User user = new();

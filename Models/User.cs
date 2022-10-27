@@ -18,5 +18,9 @@ namespace TravelPal.Models
             Location = location;
             //throw new System.NotImplementedException();
         }
+        public List<Travel> GetTravels()
+        {
+            return Travels;
+        }
     }
 }

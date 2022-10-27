@@ -13,14 +13,17 @@ namespace TravelPal
     {
         UserManager userManager;
         TravelManager travelManager;
-        User currentUser;
+        IUser currentUser;
         public TravelsWindow(UserManager uManager, TravelManager tManager)
         {
             InitializeComponent();
             userManager = uManager;
             travelManager = tManager;
-            currentUser = (User)userManager.SignedInUser;
+            currentUser = userManager.SignedInUser;
             lblWelcome.Content = $"Welcome {currentUser.UserName}!";
+            if (IsAdmin())
+                btnAddTravel.IsEnabled = false;
+            RefreshTravelList();
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
@@ -55,8 +58,27 @@ namespace TravelPal
             currentSelection = (ListViewItem)lvTravels.SelectedItem;
             Travel currentTravel = (Travel)currentSelection.Tag;
             //ta bort från user och manager
-            currentUser.Travels.Remove(currentTravel);
-            travelManager.RemoveTravel(currentTravel);
+            currentUser.GetTravels().Remove(currentTravel);
+
+            if (currentUser.GetType().Name == "User")
+            {
+                //travelManager.RemoveTravel(currentTravel);
+            }
+            else if (currentUser.GetType().Name == "Admin")
+            {
+                Admin admin = (Admin)currentUser;
+                foreach (IUser user in admin.GetUsers())
+                {
+                    bool found = false;
+                    foreach (Travel travel in user.GetTravels())
+                    {
+                        if (travel == currentTravel)
+                            found = true;
+                    }
+                    if (found)
+                        user.GetTravels().Remove(currentTravel);
+                }
+            }
             RefreshTravelList();
             ChangeButtons(false);
         }
@@ -69,10 +91,13 @@ namespace TravelPal
         private void RefreshTravelList()
         {
             lvTravels.Items.Clear();
-            foreach (Travel travel in currentUser.Travels)
+            foreach (Travel travel in currentUser.GetTravels())
             {
                 ListViewItem newItem = new();
-                newItem.Content = travel.Country;
+                if (IsAdmin())
+                    newItem.Content = travel.Country;
+                else
+                    newItem.Content = travel.Country;
                 newItem.Tag = travel;
                 lvTravels.Items.Add(newItem);
             }
@@ -86,6 +111,12 @@ namespace TravelPal
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshTravelList();
+        }
+        private bool IsAdmin()
+        {
+            if (currentUser.GetType().Name == "Admin")
+                return true;
+            return false;
         }
     }
 }
