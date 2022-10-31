@@ -22,7 +22,7 @@ namespace TravelPal.Managers
         }
         public void RemoveUser(IUser user)
         {
-
+            //Do not implement?
         }
         public bool UpdateUsername(IUser user, string newName)
         {

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
@@ -18,12 +19,16 @@ namespace TravelPal
         TravelManager travelManager;
         IUser currentUser;
         string TripReason = "";
+        int travelDays = 0;
         public AddTravelWindow(TravelManager tManager, IUser cUser)
         {
             InitializeComponent();
             travelManager = tManager;
             currentUser = cUser;
             FillComboBoxes();
+            cldStart.SelectionMode = CalendarSelectionMode.MultipleRange;
+            cldStart.DisplayDateStart = (DateTime.Today);
+            cldEnd.DisplayDateStart = (DateTime.Today);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -103,6 +108,16 @@ namespace TravelPal
             {
                 cbTripType.Items.Add(tripType);
             }
+        }
+
+        private void cldStart_SelectedDatesChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            travelDays = 0;
+            foreach (DateTime mySelectedDate in cldStart.SelectedDates)
+            {
+                travelDays++;
+            }
+            lblDays.Content = travelDays;
         }
     }
 }
