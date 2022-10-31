@@ -5,10 +5,10 @@ namespace TravelPal.Travels
     public class Trip : Travel
     {
         public TripTypes Type { get; set; }
-        public Trip(string destination, Countries country, int travellers,
-            // DateTime startDate, DateTime endDate, int travelDays, 
+        public Trip(string destination, Countries country, int travellers, int travelDays,
+            // DateTime startDate, DateTime endDate, 
             TripTypes type
-            ) : base(destination, country, travellers
+            ) : base(destination, country, travellers, travelDays
                 //, startDate, endDate, travelDays
                 )
         {

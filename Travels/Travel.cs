@@ -10,13 +10,14 @@ namespace TravelPal.Travels
         //public List<PackingListItem> PackingList { get; set; }
         //public DateTime StartDate { get; set; }
         //public DateTime EndDate { get; set; }
-        //public int TravelDays { get; set; }
+        public int TravelDays { get; set; }
 
-        public Travel(string destination, Countries country, int travellers)
+        public Travel(string destination, Countries country, int travellers, int travelDays)
         {
             Destination = destination;
             Country = country;
             Travellers = travellers;
+            TravelDays = travelDays;
             //PackingList = packingList;
             //StartDate = startDate;
             //EndDate = endDate;

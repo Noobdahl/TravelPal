@@ -28,7 +28,6 @@ namespace TravelPal
             FillComboBoxes();
             cldStart.SelectionMode = CalendarSelectionMode.MultipleRange;
             cldStart.DisplayDateStart = (DateTime.Today);
-            cldEnd.DisplayDateStart = (DateTime.Today);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -39,18 +38,19 @@ namespace TravelPal
 
             if (TripReason == "Vacation")
             {
-                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, (bool)chbxAllInclusive.IsChecked);
+                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, (bool)chbxAllInclusive.IsChecked);
                 AddNClose(vacation);
             }
             else if (TripReason == "Trip")
             {
-                Trip trip = new(inputDestination, inputCountry, inputTravellers, (TripTypes)cbTripType.SelectedItem);
+                Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, (TripTypes)cbTripType.SelectedItem);
                 AddNClose(trip);
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            ReturnToTravelsWindow();
             this.Close();
         }
 
@@ -78,17 +78,8 @@ namespace TravelPal
         {
             currentUser.GetTravels().Add(travel);
             travelManager.AddTravel(travel);
-
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window.GetType().Name == "TravelsWindow")
-                {
-                    window.Show();
-                }
-            }
-
             ((TravelsWindow)this.Owner).RefreshTravelList();
-            this.Close();
+            ReturnToTravelsWindow();
         }
         private void FillComboBoxes()
         {
@@ -118,6 +109,18 @@ namespace TravelPal
                 travelDays++;
             }
             lblDays.Content = travelDays;
+
+        }
+        private void ReturnToTravelsWindow()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
+            this.Close();
         }
     }
 }

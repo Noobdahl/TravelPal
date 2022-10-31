@@ -6,9 +6,9 @@ namespace TravelPal.Travels
     {
         public bool IsAllInclusive { get; set; }
 
-        public Vacation(string destination, Countries country, int travellers,
-            //DateTime startDate, DateTime endDate, int travelDays, 
-            bool isAllInclusive) : base(destination, country, travellers
+        public Vacation(string destination, Countries country, int travellers, int travelDays,
+            //DateTime startDate, DateTime endDate, 
+            bool isAllInclusive) : base(destination, country, travellers, travelDays
                 // , startDate, endDate, travelDays
                 )
         {

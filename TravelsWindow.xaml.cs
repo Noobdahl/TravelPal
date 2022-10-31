@@ -94,13 +94,14 @@ namespace TravelPal
             foreach (Travel travel in currentUser.GetTravels())
             {
                 ListViewItem newItem = new();
-                if (IsAdmin())
-                    newItem.Content = travel.Country;
+                if (travel.TravelDays == 1)
+                    newItem.Content = $"{travel.Country} for {travel.TravelDays} day";
                 else
-                    newItem.Content = travel.Country;
+                    newItem.Content = $"{travel.Country} for {travel.TravelDays} days";
                 newItem.Tag = travel;
                 lvTravels.Items.Add(newItem);
             }
+            ChangeButtons(false);
         }
         private void ChangeButtons(bool toggle)
         {

@@ -25,9 +25,9 @@ namespace TravelPal
             //User gandalf = new();
             //gandalf.IUser("Gandalf", "password", Countries.Sweden);
             //userManager.AddUser(gandalf);
-            //Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, false);
+            //Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, false);
             //gandalf.GetTravels().Add(gandalfVac);
-            //Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, TripTypes.Work);
+            //Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, TripTypes.Work);
             //gandalf.GetTravels().Add(gandalfTrip);
 
 
@@ -35,11 +35,11 @@ namespace TravelPal
             user2.IUser("qwe", "asd", Countries.Sweden);
             userManager.AddUser(user2);
 
-            Vacation standard = new("Ullared", Countries.Sweden, 1, true);
+            Vacation standard = new("Ullared", Countries.Sweden, 1, 1, true);
             user2.GetTravels().Add(standard);
-            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, false);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, false);
             user2.GetTravels().Add(gandalfVac);
-            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, TripTypes.Work);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, TripTypes.Work);
             user2.GetTravels().Add(gandalfTrip);
         }
 
