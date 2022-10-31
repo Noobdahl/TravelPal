@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
@@ -78,6 +79,11 @@ namespace TravelPal
                 else
                     lblTaken.Visibility = Visibility.Collapsed;
             }
+        }
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
     }
 }

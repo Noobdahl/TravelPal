@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TravelPal.Managers;
 using TravelPal.Models;
 using TravelPal.Travels;
@@ -117,6 +118,11 @@ namespace TravelPal
         public void RefreshUser()
         {
             lblWelcome.Content = $"Welcome {currentUser.UserName}!";
+        }
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
     }
 }

@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="Login" Height="550" Width="800 "
+        Title="TravelPal - Home" Height="550" Width="800 "
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue" >
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
