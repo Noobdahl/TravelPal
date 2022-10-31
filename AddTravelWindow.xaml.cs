@@ -20,6 +20,8 @@ namespace TravelPal
         IUser currentUser;
         string TripReason = "";
         int travelDays = 0;
+        DateTime startDate;
+        DateTime endDate;
         public AddTravelWindow(TravelManager tManager, IUser cUser)
         {
             InitializeComponent();
@@ -38,12 +40,12 @@ namespace TravelPal
 
             if (TripReason == "Vacation")
             {
-                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, (bool)chbxAllInclusive.IsChecked);
+                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
                 AddNClose(vacation);
             }
             else if (TripReason == "Trip")
             {
-                Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, (TripTypes)cbTripType.SelectedItem);
+                Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
                 AddNClose(trip);
             }
         }
@@ -109,7 +111,8 @@ namespace TravelPal
                 travelDays++;
             }
             lblDays.Content = travelDays;
-
+            startDate = cldStart.SelectedDates[0];
+            endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
         }
         private void ReturnToTravelsWindow()
         {

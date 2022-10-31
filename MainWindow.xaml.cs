@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
@@ -35,11 +36,11 @@ namespace TravelPal
             user2.IUser("qwe", "asd", Countries.Sweden);
             userManager.AddUser(user2);
 
-            Vacation standard = new("Ullared", Countries.Sweden, 1, 1, true);
+            Vacation standard = new("Ullared", Countries.Sweden, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), true);
             user2.GetTravels().Add(standard);
-            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, false);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), false);
             user2.GetTravels().Add(gandalfVac);
-            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, TripTypes.Work);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 2, new DateTime(2022, 11, 1), new DateTime(2022, 11, 2), TripTypes.Work);
             user2.GetTravels().Add(gandalfTrip);
         }
 

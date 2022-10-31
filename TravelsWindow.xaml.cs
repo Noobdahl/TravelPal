@@ -28,7 +28,7 @@ namespace TravelPal
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Clicka på saker", "HowTo TravelPal", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnUser_Click(object sender, RoutedEventArgs e)

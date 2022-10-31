@@ -21,6 +21,8 @@ namespace TravelPal
         Travel currentTravel;
         string TripReason = "";
         int travelDays = 0;
+        DateTime startDate;
+        DateTime endDate;
         public TravelDetailsWindow(TravelManager tManager, IUser user, Travel cTravel)
         {
             InitializeComponent();
@@ -70,6 +72,8 @@ namespace TravelPal
             currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
             currentTravel.Travellers = Convert.ToInt32(tbTravellers.Text);
             currentTravel.TravelDays = travelDays;
+            currentTravel.StartDate = startDate;
+            currentTravel.EndDate = endDate;
 
             //If travel is same type, just change it
             if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
@@ -88,13 +92,13 @@ namespace TravelPal
                 //If it was Vacation, now create Trip
                 if (currentTravel.GetType().Name == "Vacation")
                 {
-                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, (TripTypes)cbTripType.SelectedItem);
+                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
                     AddToLists(newTrip);
                 }
                 //If it was Trip, now create Vacation
                 else
                 {
-                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, (bool)chbxAllInclusive.IsChecked);
+                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
                     AddToLists(newVacation);
                 }
                 //Removing old travel
@@ -144,6 +148,8 @@ namespace TravelPal
             tbTravellers.Text = currentTravel.Travellers.ToString();
             lblDays.Content = currentTravel.TravelDays;
             travelDays = currentTravel.TravelDays;
+            lblStartDate.Content = currentTravel.StartDate;
+            lblEndDate.Content = currentTravel.EndDate;
         }
         private void FillComboBoxes()
         {
@@ -205,6 +211,8 @@ namespace TravelPal
                 travelDays++;
             }
             lblDays.Content = travelDays;
+            startDate = cldStart.SelectedDates[0];
+            endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
         }
     }
 }
