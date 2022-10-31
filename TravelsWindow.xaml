@@ -95,12 +95,5 @@
             Width="60"
             Content="Sign Out"
             Click="btnSignOut_Click" />
-        <Button
-            Name="btnRefresh"
-            Grid.Column="5"
-            Grid.Row="3"
-            Height="30"
-            Content="Refresh"
-            Click="btnRefresh_Click"/>
     </Grid>
 </Window>

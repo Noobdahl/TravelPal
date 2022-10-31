@@ -26,8 +26,6 @@ namespace TravelPal
             User user2 = new();
             user.IUser("qwe", "asd", Countries.Sweden);
             userManager.AddUser(user);
-
-            ///Second commit
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -41,6 +39,7 @@ namespace TravelPal
         {
             if (userManager.SignInUser(tbUsername.Text, tbPassword.Password))
             {
+                tbPassword.Clear();
                 TravelsWindow travelsWindow = new(userManager, travelManager);
                 travelsWindow.Show();
                 this.Hide();
@@ -48,6 +47,7 @@ namespace TravelPal
             else
             {
                 MessageBox.Show("Incorrecto");
+                tbPassword.Clear();
             }
         }
     }

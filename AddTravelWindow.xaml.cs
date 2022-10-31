@@ -74,7 +74,17 @@ namespace TravelPal
         private void AddNClose(Travel travel)
         {
             currentUser.GetTravels().Add(travel);
-            //travelManager.AddTravel(travel);
+            travelManager.AddTravel(travel);
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
+
+            ((TravelsWindow)this.Owner).RefreshTravelList();
             this.Close();
         }
         private void FillComboBoxes()

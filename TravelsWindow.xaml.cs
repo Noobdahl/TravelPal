@@ -43,22 +43,30 @@ namespace TravelPal
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
-            AddTravelWindow addTravelWindow = new(travelManager, currentUser);
-            addTravelWindow.Show();
+            //AddTravelWindow addTravelWindow = new(travelManager, currentUser);
+            //addTravelWindow.Show();
+
+            AddTravelWindow addTravelWindowTest = new(travelManager, currentUser);
+            addTravelWindowTest.Owner = this;
+            addTravelWindowTest.Show();
+            this.Hide();
         }
 
         private void btnDetailsTravel_Click(object sender, RoutedEventArgs e)
         {
-
+            TravelDetailsWindow travelDetailsWindow = new(travelManager, currentUser, GetSelectedTravel());
+            travelDetailsWindow.Show();
+        }
+        private Travel GetSelectedTravel()
+        {
+            return (Travel)((ListViewItem)lvTravels.SelectedItem).Tag;
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-            ListViewItem currentSelection = new();
-            currentSelection = (ListViewItem)lvTravels.SelectedItem;
-            Travel currentTravel = (Travel)currentSelection.Tag;
+            Travel currentTravel = GetSelectedTravel();
             //ta bort från user och manager
-            currentUser.GetTravels().Remove(currentTravel);
+            currentUser.GetTravels().Remove(GetSelectedTravel());
 
             if (currentUser.GetType().Name == "User")
             {
@@ -88,7 +96,7 @@ namespace TravelPal
             ((MainWindow)Application.Current.MainWindow).Show();
             this.Close();
         }
-        private void RefreshTravelList()
+        public void RefreshTravelList()
         {
             lvTravels.Items.Clear();
             foreach (Travel travel in currentUser.GetTravels())
@@ -106,11 +114,6 @@ namespace TravelPal
         {
             btnDetailsTravel.IsEnabled = toggle;
             btnRemoveTravel.IsEnabled = toggle;
-        }
-
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshTravelList();
         }
         private bool IsAdmin()
         {

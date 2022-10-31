@@ -10,6 +10,6 @@ namespace TravelPal.Models
         public string Password { get; set; }
         public Countries Location { get; set; }
         void IUser(string username, string password, Countries location);
-        List<Travel> GetTravels();
+        public List<Travel> GetTravels();
     }
 }
