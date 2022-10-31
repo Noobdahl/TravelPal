@@ -12,6 +12,9 @@
         MouseDown="Window_MouseDown" 
         Background="MediumSlateBlue">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>

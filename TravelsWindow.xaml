@@ -16,90 +16,177 @@
             <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
+        <!--Title-->
         <Label
             Grid.Column="2"
             Grid.ColumnSpan="3"
             Grid.Row="0"
-            FontSize="50"
-            Content="TravelPal ©"
+            FontSize="45"
+            FontFamily="Arial"
+            Foreground="MintCream"
+            FontWeight="Medium"
+            Content="TravelPal"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+            Margin="0,20,0,0"/>
+
+        <!--Help button-->
         <Button
             Name="btnHelp"
             Content="?"
-            Grid.Column="0"
+            Grid.Column="5"
             Grid.Row="0"
-            Height="20"
-            Width="20"
-            Click="btnHelp_Click"/>
+            Background="MediumSlateBlue"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
+            Cursor="Hand"
+            Height="25"
+            Width="25"
+            Click="btnHelp_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--User button-->
         <Button
             Name="btnUser"
             Content="User"
             Grid.Column="1"
             Grid.Row="0"
-            Height="20"
+            Background="MediumSlateBlue"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
             Width="50"
-            Click="btnUser_Click"/>
+            Height="25"
+            Cursor="Hand"
+            
+            Click="btnUser_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--Welcome label-->
         <Label
             Name="lblWelcome"
-            Content="Welcome User"
-            FontSize="30"
+            Content="Welcome -UserName-"
+            Foreground="MintCream"
+            FontSize="20"
+            FontWeight="Medium"
+            Margin="0,0,0,0"
             Grid.Column="1"
             Grid.Row="1"
             Grid.ColumnSpan="5"/>
+
+        <!--Travel list-->
         <ListView
             Name="lvTravels"
+            BorderThickness="0"
+            Background="Transparent"
             Grid.Column="1"
             Grid.Row="2"
-            Grid.ColumnSpan="5"
+            Grid.ColumnSpan="4"
             SelectionChanged="lvTravels_SelectionChanged"/>
+
+        <!--Add Travel button-->
         <Button
             Name="btnAddTravel"
             Grid.Column="1"
             Grid.Row="4"
-            Height="30"
-            Width="80"
+            Background="#9900FF27"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
+            Cursor="Hand"
+            Margin="5,5,5,150"
             Content="Add Travel"
-            Click="btnAddTravel_Click"/>
+            Click="btnAddTravel_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--Travel details button-->
         <Button
             Name="btnDetailsTravel"
-            IsEnabled="False"
             Grid.Column="2"
             Grid.Row="4"
-            Height="30"
-            Width="80"
+            Background="MediumSlateBlue"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
+            Cursor="Hand"
+            Margin="20,5,60,150"
             Content="Details"
-            Click="btnDetailsTravel_Click"/>
+            Click="btnDetailsTravel_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--Remove Travel button-->
         <Button
             Name="btnRemoveTravel"
-            IsEnabled="False"
             Grid.Column="3"
             Grid.Row="4"
-            Height="30"
-            Width="120"
+            Background="#4CFF0000"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
+            Cursor="Hand"
+            Margin="10,5,60,150"
             Content="Remove Travel"
-            Click="btnRemoveTravel_Click"/>
+            Click="btnRemoveTravel_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--Sign Out button-->
         <Button
             Name="btnSignOut"
             Grid.Column="6"
             Grid.Row="0"
-            Height="30"
-            Width="60"
+            Background="MediumSlateBlue"
+            BorderThickness="0"
+            Foreground="MintCream"
+            FontSize="12"
+            Cursor="Hand"
+            Width="70"
+            Height="25"
             Content="Sign Out"
-            Click="btnSignOut_Click" />
+            Click="btnSignOut_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

@@ -106,8 +106,17 @@ namespace TravelPal
         }
         private void ChangeButtons(bool toggle)
         {
-            btnDetailsTravel.IsEnabled = toggle;
-            btnRemoveTravel.IsEnabled = toggle;
+            if (toggle)
+            {
+                btnDetailsTravel.Visibility = Visibility.Visible;
+                btnRemoveTravel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnDetailsTravel.Visibility = Visibility.Hidden;
+                btnRemoveTravel.Visibility = Visibility.Hidden;
+            }
+
         }
         private bool IsAdmin()
         {
