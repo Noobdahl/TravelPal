@@ -26,6 +26,7 @@
             Grid.ColumnSpan="2"
             Grid.Row="0"
             FontSize="50"
+            FontFamily="Arial"
             Content="TravelPal ©"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
@@ -64,7 +65,7 @@
             Click="btnRegister_Click"/>
         <Button
             Name="btnLogin"
-            Content="Login"
+            Content="Sign In"
             Grid.Column="2"
             Grid.Row="3"
             HorizontalAlignment="Center"

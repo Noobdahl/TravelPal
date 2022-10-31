@@ -2,6 +2,7 @@
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
@@ -20,12 +21,26 @@ namespace TravelPal
             Admin admin = new(travelManager, userManager);
             admin.IUser("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
-            User user = new();
-            user.IUser("Gandalf", "password", Countries.Sweden);
-            userManager.AddUser(user);
+
+            //User gandalf = new();
+            //gandalf.IUser("Gandalf", "password", Countries.Sweden);
+            //userManager.AddUser(gandalf);
+            //Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, false);
+            //gandalf.GetTravels().Add(gandalfVac);
+            //Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, TripTypes.Work);
+            //gandalf.GetTravels().Add(gandalfTrip);
+
+
             User user2 = new();
-            user.IUser("qwe", "asd", Countries.Sweden);
-            userManager.AddUser(user);
+            user2.IUser("qwe", "asd", Countries.Sweden);
+            userManager.AddUser(user2);
+
+            Vacation standard = new("Ullared", Countries.Sweden, 1, true);
+            user2.GetTravels().Add(standard);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, false);
+            user2.GetTravels().Add(gandalfVac);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, TripTypes.Work);
+            user2.GetTravels().Add(gandalfTrip);
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -46,7 +61,7 @@ namespace TravelPal
             }
             else
             {
-                MessageBox.Show("Incorrecto");
+                MessageBox.Show("Username or password was incorrect.");
                 tbPassword.Clear();
             }
         }

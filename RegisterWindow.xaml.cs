@@ -33,13 +33,21 @@ namespace TravelPal
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (tbUsername.Text.Count() >= 3 || pbPassword.Password.Count() >= 5)
+
+            if (tbUsername.Text.Length < 3)
+                MessageBox.Show("Username must be atleast 3 characters.");
+            else if (pbPassword.Password.Length < 5)
+                MessageBox.Show("Password must be atleast 5 characters.");
+            else if (pbPassword.Password != pbConfirmPassword.Password)
+                MessageBox.Show("Passwords did not match.");
+            else
             {
                 User user = new();
                 string countryString = cbCountries.Text.Replace(" ", "_");
                 user.IUser(tbUsername.Text, pbPassword.Password, (Countries)Enum.Parse(typeof(Countries), countryString));
                 if (userManager.AddUser(user))
                 {
+                    MessageBox.Show("Register completed!");
                     ((MainWindow)Application.Current.MainWindow).Show();
                     this.Close();
                 }
@@ -47,14 +55,11 @@ namespace TravelPal
                 {
                     MessageBox.Show("That username is already taken.");
                     pbPassword.Clear();
+                    pbConfirmPassword.Clear();
                 }
             }
-            else
-            {
-                MessageBox.Show("Username must contain atleast 3 characters and password must contain atleast 5.");
-                tbUsername.Clear();
-                pbPassword.Clear();
-            }
+            pbPassword.Clear();
+            pbConfirmPassword.Clear();
         }
 
         private void cbCountries_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
