@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
@@ -36,7 +37,7 @@ namespace TravelPal
             user2.IUser("qwe", "asd", Countries.Sweden);
             userManager.AddUser(user2);
 
-            Vacation standard = new("Ullared", Countries.Sweden, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), true);
+            Vacation standard = new("Bofors", Countries.Sweden, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), true);
             user2.GetTravels().Add(standard);
             Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), false);
             user2.GetTravels().Add(gandalfVac);
@@ -65,6 +66,12 @@ namespace TravelPal
                 MessageBox.Show("Username or password was incorrect.");
                 tbPassword.Clear();
             }
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
     }
 }

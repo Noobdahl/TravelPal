@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="AddTravelWindow" Height="550" Width="800"
-        Background="MediumSlateBlue"
-        WindowStartupLocation="CenterScreen">
+        Title="Login" Height="550" Width="800 "
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
+        Background="MediumSlateBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="RegisterWindow" Height="300" Width="350 "
+        Title="Login" Height="550" Width="800 "
         WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown" 
         Background="MediumSlateBlue">
     <Grid>
         <Grid.ColumnDefinitions>

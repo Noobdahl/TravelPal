@@ -22,8 +22,6 @@ namespace TravelPal.Travels
             StartDate = startDate;
             EndDate = endDate;
             //PackingList = packingList;
-            //StartDate = startDate;
-            //EndDate = endDate;
         }
         private int CalculateTravelDays()
         {

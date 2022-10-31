@@ -5,73 +5,123 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal" Height="450" Width="600"
+        Title="Login" Height="550" Width="800 "
         WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Grid.Row="0"
-            FontSize="50"
-            FontFamily="Arial"
-            Content="TravelPal ©"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
-        <Label
-            Grid.Column="1"
-            Grid.Row="1"
-            Content="Username:"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            FontSize="25"/>
-        <Label
-            Grid.Column="1"
-            Grid.Row="2"
-            Content="Password:"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            FontSize="25"/>
-        <TextBox
-            Name="tbUsername"
-            Grid.Column="2"
-            Grid.Row="1"
-            Height="30"/>
-        <PasswordBox
-            Name="tbPassword"
-            Grid.Column="2"
-            Grid.Row="2"
-            Height="30"/>
-        <Button
-            Name="btnRegister"
-            Content=" Register "
-            Grid.Column="1"
-            Grid.Row="3"
-            HorizontalAlignment="Center"
-            Width="80"
-            Height="25"
-            Click="btnRegister_Click"/>
-        <Button
-            Name="btnLogin"
-            Content="Sign In"
-            Grid.Column="2"
-            Grid.Row="3"
-            HorizontalAlignment="Center"
-            Width="80"
-            Height="25"
-            Click="btnLogin_Click"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
+        </Grid.Background>
 
+        <StackPanel Width="250"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Orientation="Vertical"
+                    Margin="0,35,0,0">
+
+            <!--Title-->
+            <Label
+                FontSize="45"
+                FontFamily="Arial"
+                Foreground="MintCream"
+                FontWeight="Medium"
+                Content="TravelPal"
+                HorizontalAlignment="Center"/>
+
+            <!--Username Label-->
+            <Label
+                Content="Username:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,15,0,0"/>
+
+            <!--Username TextBox-->
+            <TextBox
+                Name="tbUsername"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent"
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="0,5,0,0"/>
+
+            <!--Password Label-->
+            <Label
+            Content="Password:"
+            Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,15,0,0"/>
+
+            <!--Password Box-->
+            <PasswordBox
+                Name="tbPassword"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent"
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="0,5,0,0"/>
+
+            <!--Login button-->
+            <Button
+                Name="btnLogin"
+                Background="MediumSlateBlue"
+                BorderThickness="0"
+                Foreground="MintCream"
+                FontSize="12"
+                Cursor="Hand"
+                Margin="55,30,55,0" 
+                Content="Sign In"
+                Click="btnLogin_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <!--Register button-->
+            <Button
+                Name="btnRegister"
+                Content=" Register "
+                Background="MediumSlateBlue"
+                BorderThickness="0"
+                Foreground="MintCream"
+                FontSize="12"
+                Cursor="Hand"
+                Margin="70,20,70,25" 
+                Click="btnRegister_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </StackPanel>
+        
     </Grid>
 </Window>
