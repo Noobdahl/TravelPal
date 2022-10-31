@@ -33,7 +33,10 @@ namespace TravelPal
 
         private void btnUser_Click(object sender, RoutedEventArgs e)
         {
-
+            UserDetailsWindow userDetailsWindow = new(userManager, currentUser);
+            userDetailsWindow.Owner = this;
+            userDetailsWindow.Show();
+            this.Hide();
         }
 
         private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,6 +112,10 @@ namespace TravelPal
             if (currentUser.GetType().Name == "Admin")
                 return true;
             return false;
+        }
+        public void RefreshUser()
+        {
+            lblWelcome.Content = $"Welcome {currentUser.UserName}!";
         }
     }
 }

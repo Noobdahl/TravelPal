@@ -26,7 +26,15 @@ namespace TravelPal.Managers
         }
         public bool UpdateUsername(IUser user, string newName)
         {
-            return true;
+            if (ValidateUsername(newName))
+            {
+                user.UserName = newName;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         private bool ValidateUsername(string newName)
         {
