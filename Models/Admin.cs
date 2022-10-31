@@ -45,5 +45,37 @@ namespace TravelPal.Models
         {
             return userManager.Users;
         }
+
+        public void RemoveTravelFromUserList(Travel currentTravel)
+        {
+            foreach (IUser user in GetUsers())
+            {
+                bool found = false;
+                foreach (Travel travel in user.GetTravels())
+                {
+                    if (travel == currentTravel)
+                        found = true;
+                }
+                if (found)
+                    user.GetTravels().Remove(currentTravel);
+            }
+        }
+        public void ReplaceTravelAtUserList(Travel oldTravel, Travel newTravel)
+        {
+            foreach (IUser user in GetUsers())
+            {
+                bool found = false;
+                foreach (Travel travel in user.GetTravels())
+                {
+                    if (travel == oldTravel)
+                        found = true;
+                }
+                if (found)
+                {
+                    user.GetTravels().Remove(oldTravel);
+                    user.GetTravels().Add(newTravel);
+                }
+            }
+        }
     }
 }

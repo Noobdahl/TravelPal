@@ -34,14 +34,12 @@ namespace TravelPal
 
             if (TripReason == "Vacation")
             {
-                bool isAllInclusive = (bool)chbxAllInclusive.IsChecked;
-                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, isAllInclusive);
+                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, (bool)chbxAllInclusive.IsChecked);
                 AddNClose(vacation);
             }
             else if (TripReason == "Trip")
             {
-                TripTypes inputType = (TripTypes)cbTripType.SelectedItem;
-                Trip trip = new(inputDestination, inputCountry, inputTravellers, inputType);
+                Trip trip = new(inputDestination, inputCountry, inputTravellers, (TripTypes)cbTripType.SelectedItem);
                 AddNClose(trip);
             }
         }

@@ -18,5 +18,9 @@ namespace TravelPal.Travels
         {
             return $"";
         }
+        public override void SetAllInclusive(bool isAllInclusive)
+        {
+            IsAllInclusive = isAllInclusive;
+        }
     }
 }

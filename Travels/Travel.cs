@@ -25,5 +25,12 @@ namespace TravelPal.Travels
         {
             return -1;
         }
+        public virtual void SetAllInclusive(bool isAllInclusive)
+        {
+        }
+        public virtual void SetTripType(TripTypes type)
+        {
+
+        }
     }
 }

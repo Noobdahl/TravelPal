@@ -55,7 +55,9 @@ namespace TravelPal
         private void btnDetailsTravel_Click(object sender, RoutedEventArgs e)
         {
             TravelDetailsWindow travelDetailsWindow = new(travelManager, currentUser, GetSelectedTravel());
+            travelDetailsWindow.Owner = this;
             travelDetailsWindow.Show();
+            this.Hide();
         }
         private Travel GetSelectedTravel()
         {
@@ -65,27 +67,14 @@ namespace TravelPal
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
             Travel currentTravel = GetSelectedTravel();
-            //ta bort från user och manager
+            //Users tar bort från egen lista här, och admin tar bort från temporära travelmanagers lista
             currentUser.GetTravels().Remove(GetSelectedTravel());
 
-            if (currentUser.GetType().Name == "User")
-            {
-                //travelManager.RemoveTravel(currentTravel);
-            }
-            else if (currentUser.GetType().Name == "Admin")
+            //om admin, ta bort från userns lista med
+            if (currentUser.GetType().Name == "Admin")
             {
                 Admin admin = (Admin)currentUser;
-                foreach (IUser user in admin.GetUsers())
-                {
-                    bool found = false;
-                    foreach (Travel travel in user.GetTravels())
-                    {
-                        if (travel == currentTravel)
-                            found = true;
-                    }
-                    if (found)
-                        user.GetTravels().Remove(currentTravel);
-                }
+                admin.RemoveTravelFromUserList(currentTravel);
             }
             RefreshTravelList();
             ChangeButtons(false);

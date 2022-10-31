@@ -24,3 +24,6 @@ namespace TravelPal.Models
         }
     }
 }
+
+
+//hur ska admins kunna ändra trip till vacation? de kan inte lägga till resor...

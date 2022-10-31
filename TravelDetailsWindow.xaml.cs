@@ -17,17 +17,17 @@ namespace TravelPal
     {
         TravelManager travelManager;
         IUser currentUser;
-        Travel travel;
+        Travel currentTravel;
         string TripReason = "";
         public TravelDetailsWindow(TravelManager tManager, IUser user, Travel cTravel)
         {
             InitializeComponent();
             travelManager = tManager;
             currentUser = user;
-            travel = cTravel;
+            currentTravel = cTravel;
             FillComboBoxes();
             FillInInformation();
-            if (travel.GetType().Name == "Trip")
+            if (currentTravel.GetType().Name == "Trip")
             {
                 lblTripType.Content = "Trip type";
                 cbTripType.Visibility = Visibility.Visible;
@@ -44,7 +44,7 @@ namespace TravelPal
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ReturnToTravelsWindow();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -56,16 +56,87 @@ namespace TravelPal
             cbTripType.IsEnabled = true;
             btnEdit.Visibility = Visibility.Hidden;
             btnSave.Visibility = Visibility.Visible;
+            chbxAllInclusive.IsEnabled = true;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            currentTravel.Destination = tbDestination.Text;
+            currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
+            currentTravel.Travellers = Convert.ToInt32(tbTravellers.Text);
 
+            //If travel is same type, just change it
+            if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
+            {
+                if (currentTravel.GetType().Name == "Vacation")
+                {
+                    currentTravel.SetAllInclusive((bool)chbxAllInclusive.IsChecked);
+                }
+                else
+                {
+                    currentTravel.SetTripType((TripTypes)cbTripType.SelectedItem);
+                }
+            }
+            else
+            {
+                //If it was Vacation, now create Trip
+                if (currentTravel.GetType().Name == "Vacation")
+                {
+                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, (TripTypes)cbTripType.SelectedItem);
+                    AddToLists(newTrip);
+                }
+                //If it was Trip, now create Vacation
+                else
+                {
+                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, (bool)chbxAllInclusive.IsChecked);
+                    AddToLists(newVacation);
+                }
+                //Removing old travel
+                RemoveCurrentTravelFromLists();
+
+            }
+
+            ((TravelsWindow)this.Owner).RefreshTravelList();
+            ReturnToTravelsWindow();
+
+
+        }
+        private void AddToLists(Travel travel)
+        {
+            currentUser.GetTravels().Add(travel);
+            travelManager.AddTravel(travel);
+            if (currentUser.GetType().Name == "Admin")
+            {
+                Admin admin = (Admin)currentUser;
+                admin.ReplaceTravelAtUserList(currentTravel, travel);
+            }
+        }
+        private void RemoveCurrentTravelFromLists()
+        {
+            currentUser.GetTravels().Remove(currentTravel);
+            if (currentUser.GetType().Name == "Admin")
+            {
+                Admin admin = (Admin)currentUser;
+                admin.RemoveTravelFromUserList(currentTravel);
+            }
         }
         private void FillInInformation()
         {
-            tbDestination.Text = travel.Destination;
-
+            tbDestination.Text = currentTravel.Destination;
+            cbCountry.SelectedIndex = (int)currentTravel.Country;
+            if (currentTravel.GetType().Name == "Vacation")
+            {
+                cbTripReason.SelectedIndex = 0;
+                Vacation vac = (Vacation)currentTravel;
+                chbxAllInclusive.IsChecked = vac.IsAllInclusive;
+            }
+            else
+            {
+                cbTripReason.SelectedIndex = 1;
+                Trip trip = (Trip)currentTravel;
+                cbTripType.SelectedIndex = (int)trip.Type;
+            }
+            tbTravellers.Text = currentTravel.Travellers.ToString();
         }
         private void FillComboBoxes()
         {
@@ -106,6 +177,17 @@ namespace TravelPal
                     TripReason = "Trip";
                 }
             }
+        }
+        private void ReturnToTravelsWindow()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
+            this.Close();
         }
     }
 }
