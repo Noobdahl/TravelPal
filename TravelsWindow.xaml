@@ -113,7 +113,7 @@
             Name="btnAddTravel"
             Grid.Column="1"
             Grid.Row="4"
-            Background="#9900FF27"
+            Background="#7200FF27"
             BorderThickness="0"
             Foreground="MintCream"
             FontSize="12"
@@ -158,7 +158,7 @@
             Foreground="MintCream"
             FontSize="12"
             Cursor="Hand"
-            Margin="10,5,60,150"
+            Margin="10,5,50,150"
             Content="Remove Travel"
             Click="btnRemoveTravel_Click">
             <Button.Resources>

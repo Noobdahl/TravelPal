@@ -35,7 +35,7 @@ namespace TravelPal
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
 
-            if (tbUsername.Text.Length < 3)
+            if (tbUserName.Text.Length < 3)
                 MessageBox.Show("Username must be atleast 3 characters.");
             else if (pbPassword.Password.Length < 5)
                 MessageBox.Show("Password must be atleast 5 characters.");
@@ -45,7 +45,7 @@ namespace TravelPal
             {
                 User user = new();
                 string countryString = cbCountries.Text.Replace(" ", "_");
-                user.IUser(tbUsername.Text, pbPassword.Password, (Countries)Enum.Parse(typeof(Countries), countryString));
+                user.IUser(tbUserName.Text, pbPassword.Password, (Countries)Enum.Parse(typeof(Countries), countryString));
                 if (userManager.AddUser(user))
                 {
                     MessageBox.Show("Register completed!");
@@ -72,7 +72,7 @@ namespace TravelPal
         {
             foreach (IUser u in userManager.Users)
             {
-                if (u.UserName == tbUsername.Text)
+                if (u.UserName == tbUserName.Text)
                 {
                     lblTaken.Visibility = Visibility.Visible;
                 }

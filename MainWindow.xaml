@@ -10,7 +10,7 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
-        Background="MediumSlateBlue">
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
