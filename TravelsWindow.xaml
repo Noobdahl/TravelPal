@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TravelPal - Home" Height="550" Width="800 "
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue" >
@@ -110,7 +110,7 @@
         <!--Add Travel button-->
         <Button
             Name="btnAddTravel"
-            Grid.Column="1"
+            Grid.Column="3"
             Grid.Row="4"
             Background="#7200FF27"
             BorderThickness="0"
@@ -137,7 +137,7 @@
             Foreground="MintCream"
             FontSize="12"
             Cursor="Hand"
-            Margin="20,5,60,150"
+            Margin="70,5,10,150"
             Content="Details"
             Click="btnDetailsTravel_Click">
             <Button.Resources>
@@ -150,7 +150,7 @@
         <!--Remove Travel button-->
         <Button
             Name="btnRemoveTravel"
-            Grid.Column="3"
+            Grid.Column="4"
             Grid.Row="4"
             Background="#4CFF0000"
             BorderThickness="0"

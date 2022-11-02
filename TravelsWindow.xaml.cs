@@ -24,7 +24,7 @@ namespace TravelPal
             currentUser = userManager.SignedInUser;
             lblWelcome.Content = $"Welcome {currentUser.UserName}!";
             if (IsAdmin())
-                btnAddTravel.IsEnabled = false;
+                btnAddTravel.Visibility = Visibility.Hidden;
             RefreshTravelList();
         }
 

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TravelPal - Register" Height="700" Width="500  "
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown" 
         Background="MediumSlateBlue">
@@ -139,6 +139,25 @@
                 Margin="55,30,55,0" 
                 Content="Create"
                 Click="btnCreate_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            
+            <!--Cancel button-->
+            <Button
+                    Name="btnCancel"
+                    Grid.Column="1"
+                    Background="MediumSlateBlue"
+                    BorderThickness="0"
+                    Foreground="MintCream"
+                    FontSize="12"
+                    Cursor="Hand"
+                    Margin="55,30,55,0" 
+                    Content="Cancel"
+                    Click="btnCancel_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>

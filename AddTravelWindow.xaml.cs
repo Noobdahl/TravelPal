@@ -25,6 +25,7 @@ namespace TravelPal
         int travelDays = 0;
         DateTime startDate;
         DateTime endDate;
+        TravelDocument pass;
         public AddTravelWindow(TravelManager tManager, IUser cUser)
         {
             InitializeComponent();
@@ -134,6 +135,7 @@ namespace TravelPal
             }
             startDate = cldStart.SelectedDates[0];
             endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
+            Mouse.Capture(null);
         }
         private void ReturnToTravelsWindow()
         {
@@ -213,7 +215,10 @@ namespace TravelPal
 
             lvInventory.Items.Add(newListViewItem);
         }
+
+        private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
-
-
 }

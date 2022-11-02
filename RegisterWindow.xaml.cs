@@ -85,5 +85,17 @@ namespace TravelPal
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "MainWindow")
+                {
+                    window.Show();
+                }
+            }
+            this.Close();
+        }
     }
 }

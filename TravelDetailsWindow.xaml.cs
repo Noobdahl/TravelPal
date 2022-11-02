@@ -70,46 +70,54 @@ namespace TravelPal
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            currentTravel.Destination = tbDestination.Text;
-            currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
-            currentTravel.Travellers = Convert.ToInt32(tbTravellers.Text);
-            currentTravel.TravelDays = travelDays;
-            currentTravel.StartDate = startDate;
-            currentTravel.EndDate = endDate;
-
-            //If travel is same type, just change it
-            if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
+            try
             {
-                if (currentTravel.GetType().Name == "Vacation")
+                currentTravel.Destination = tbDestination.Text;
+                currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
+                currentTravel.Travellers = Convert.ToInt32(tbTravellers.Text);
+                currentTravel.TravelDays = travelDays;
+                currentTravel.StartDate = startDate;
+                currentTravel.EndDate = endDate;
+
+                //If travel is same type, just change it
+                if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
                 {
-                    currentTravel.SetAllInclusive((bool)chbxAllInclusive.IsChecked);
+                    if (currentTravel.GetType().Name == "Vacation")
+                    {
+                        currentTravel.SetAllInclusive((bool)chbxAllInclusive.IsChecked);
+                    }
+                    else
+                    {
+                        currentTravel.SetTripType((TripTypes)cbTripType.SelectedItem);
+                    }
                 }
                 else
                 {
-                    currentTravel.SetTripType((TripTypes)cbTripType.SelectedItem);
+                    //If it was Vacation, now create Trip
+                    if (currentTravel.GetType().Name == "Vacation")
+                    {
+                        Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList);
+                        AddToLists(newTrip);
+                    }
+                    //If it was Trip, now create Vacation
+                    else
+                    {
+                        Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked, currentTravel.PackingList);
+                        AddToLists(newVacation);
+                    }
+                    //Removing old travel
+                    RemoveCurrentTravelFromLists();
+
                 }
+                ((TravelsWindow)this.Owner).RefreshTravelList();
+                ReturnToTravelsWindow();
             }
-            else
+            catch (Exception ex)
             {
-                //If it was Vacation, now create Trip
-                if (currentTravel.GetType().Name == "Vacation")
-                {
-                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList);
-                    AddToLists(newTrip);
-                }
-                //If it was Trip, now create Vacation
-                else
-                {
-                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked, currentTravel.PackingList);
-                    AddToLists(newVacation);
-                }
-                //Removing old travel
-                RemoveCurrentTravelFromLists();
-
+                MessageBox.Show($"Something went wrong, please check all inputs.\n\n ({ex.Message})");
             }
 
-            ((TravelsWindow)this.Owner).RefreshTravelList();
-            ReturnToTravelsWindow();
+
 
         }
         private void AddToLists(Travel travel)
@@ -153,10 +161,9 @@ namespace TravelPal
                 cbTripType.SelectedIndex = (int)trip.Type;
             }
             tbTravellers.Text = currentTravel.Travellers.ToString();
-            lblDays.Content = currentTravel.TravelDays;
             travelDays = currentTravel.TravelDays;
-            lblStartDate.Content = currentTravel.StartDate;
-            lblEndDate.Content = currentTravel.EndDate;
+            lblStartDate.Content = "Starting date: " + currentTravel.StartDate;
+            lblEndDate.Content = "Ending date: " + currentTravel.EndDate;
         }
         private void FillComboBoxes()
         {
@@ -217,10 +224,18 @@ namespace TravelPal
             {
                 travelDays++;
             }
-            lblDays.Content = travelDays;
             startDate = cldStart.SelectedDates[0];
             endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
+            SetDateLabels();
+            Mouse.Capture(null);
         }
+
+        private void SetDateLabels()
+        {
+            lblStartDate.Content = "Starting date: " + startDate;
+            lblEndDate.Content = "Ending date: " + endDate;
+        }
+
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

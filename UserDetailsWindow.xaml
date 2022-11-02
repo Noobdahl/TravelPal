@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TravelPal - User Details" Height="700" Width="500 "
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal - Travel Details" Height="550" Width="800 "
+        Title="TravelPal - Travel Details" Height="750" Width="800"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">
@@ -19,171 +19,291 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.Row="0"
-            FontSize="50"
-            Content="TravelPal ©"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
-        <Label
-            Content="Destination:"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="1"
-            Grid.Row="1"/>
-        <TextBox
-            IsEnabled="False"
-            Name="tbDestination"
-            Grid.Column="2"
-            Grid.Row="1"
-            Height="20"/>
-        <Label
-            Content="Country:"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="1"
-            Grid.Row="2"/>
-        <ComboBox
-            IsEnabled="False"
-            Name="cbCountry"
-            Grid.Column="2"
-            Grid.Row="2"
-            Height="20"
-            Width="150"/>
-        <Label
-            Content="Trip reason:"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="1"
-            Grid.Row="3"/>
-        <ComboBox
-            IsEnabled="False"
-            Name="cbTripReason"
-            Grid.Column="2"
-            Grid.Row="3"
-            Height="20"
-            Width="100"
-            SelectionChanged="cbTripReason_SelectionChanged"
-            />
-        <Label
-            Name="lblDays"
-            Content="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="1"
-            Grid.Row="6"/>
-        <Label
-            Name="lblStartDate"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="2"
-            Grid.Row="6"/>
-        <Label
-            Name="lblEndDate"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Grid.Column="2"
-            Grid.Row="7"/>
-        <Label
-            Name="lblTripType"
-            Grid.Column="3"
-            Grid.Row="3"
-            HorizontalAlignment="Center"
-            Content=""/>
-        <ComboBox
-            IsEnabled="False"
-            Name="cbTripType"
-            Grid.Column="3"
-            Grid.Row="4"
-            Height="20"
-            Width="100"
-            Visibility="Hidden"
-            />
-        <CheckBox
-            IsEnabled="False"
-            Name="chbxAllInclusive"
-            Grid.Column="3"
-            Grid.Row="4"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Visibility="Hidden"/>
-        <Label
-            Content="Travellers:"
-            Grid.Column="1"
-            Grid.Row="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            FontSize="15"/>
-        <TextBox
-            IsEnabled="False"
-            Name="tbTravellers"
-            Grid.Column="2"
-            Grid.Row="4"
-            Height="20"
-            Width="50"/>
-        <Calendar
-            Visibility="Hidden"
-            Name="cldStart"
-            Grid.Column="2"
-            Grid.Row="5"
-            Grid.RowSpan="3"
-            SelectedDatesChanged="cldStart_SelectedDatesChanged"/>
-        <Button
-            Name="btnEdit"
-            Grid.Column="2"
-            Grid.Row="8"
-            Content="Edit"
-            Height="30"
-            Width="100"
-            Click="btnEdit_Click"/>
-        <Button
-            Name="btnSave"
-            Grid.Column="2"
-            Grid.Row="8"
-            Content="Save"
-            Height="30"
-            Width="100"
-            Visibility="Hidden"
-            Click="btnSave_Click"/>
-        <Button
-            Name="btnCancel"
-            Grid.Column="3"
-            Grid.Row="8"
-            Content="Cancel"
-            Height="30"
-            Width="100"
-            Click="btnCancel_Click"/>
 
-        <ListView
-            Name="lvPacklist"
-            Grid.Column="4"
+
+        <StackPanel Width="250"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Orientation="Vertical"
+                    Margin="0,5,0,0">
+
+            <!--Title-->
+            <Label
+                FontSize="45"
+                FontFamily="Arial"
+                Foreground="MintCream"
+                FontWeight="Medium"
+                Content="TravelPal"
+                HorizontalAlignment="Center"/>
+
+            <!--Destination Label-->
+            <Label
+                Content="Destination:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Destination textbox-->
+            <TextBox
+                Name="tbDestination"
+                IsEnabled="False"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent"
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="5,0,0,5"/>
+
+            <!--Country Label-->
+            <Label
+                Content="Country:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Country combobox-->
+            <ComboBox
+                Name="cbCountry"
+                IsEnabled="False"
+                Grid.Column="2"
+                Grid.Row="2"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--TripReason Label-->
+                <Label
+                    Content="Trip reason:"
+                    Foreground="MintCream"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Margin="0,10,0,0"/>
+
+                <!--Trip Reason combobox-->
+                <ComboBox
+                    Name="cbTripReason"
+                    IsEnabled="False"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Height="20"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    SelectionChanged="cbTripReason_SelectionChanged"/>
+
+                <!--TripType Label-->
+                <Label
+                    Name="lblTripType"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Foreground="MintCream"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Margin="0,10,0,0"/>
+
+                <!--Trip type combobox-->
+                <ComboBox
+                    Name="cbTripType"
+                    IsEnabled="False"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Height="20"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    Visibility="Hidden"/>
+
+                <!--Checkbox all inclusive-->
+                <CheckBox
+                    IsEnabled="False"
+                    Name="chbxAllInclusive"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Visibility="Hidden"/>
+
+
+            </Grid>
+
+            <!--Travelers Label-->
+            <Label
+                Content="Travelers:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Travellers textbox-->
+            <TextBox
+                Name="tbTravellers"
+                IsEnabled="False"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent"
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="5,0,0,5"/>
+
+            <!--StartDate Label-->
+            <Label
+                Name="lblStartDate"
+                Content="Starting Date:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+            
+            <!--EndDate Label-->
+            <Label
+                Name="lblEndDate"
+                Content="Ending Date:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Calendar-->
+            
+        </StackPanel>
+
+        
+
+
+        <StackPanel Width="250"
             Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Grid.RowSpan="4"/>
+            Grid.Column="2"
+            Orientation="Vertical"
+            Margin="0,5,0,0">
+
+            <!--Calendar-->
+            <Calendar
+                 Name="cldStart"
+                Visibility="Hidden"
+                 Grid.ColumnSpan="2"
+                 Margin="0,100,0,0"
+                 SelectedDatesChanged="cldStart_SelectedDatesChanged"/>
+
+            <!--Packinglist Label-->
+            <Label
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Content="Packing List"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Packinglist listview-->
+            <ListView
+                    Name="lvPacklist"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Height="150"
+                    Margin="30,20,30,0"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Edit button-->
+                <Button
+                    Name="btnEdit"
+                    Background="MediumSlateBlue"
+                    BorderThickness="0"
+                    Foreground="MintCream"
+                    FontSize="12"
+                    Cursor="Hand"
+                    Margin="10,20,5,0" 
+                    Content="Edit"
+                    Click="btnEdit_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                
+                <!--Save button-->
+                <Button
+                    Name="btnSave"
+                    Visibility="Hidden"
+                    Grid.Column="0"
+                    Background="MediumSlateBlue"
+                    BorderThickness="0"
+                    Foreground="MintCream"
+                    FontSize="12"
+                    Cursor="Hand"
+                    Margin="10,20,5,0" 
+                    Content="Save"
+                    Click="btnSave_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <!--Cancel button-->
+                <Button
+                    Name="btnCancel"
+                    Grid.Column="1"
+                    Background="MediumSlateBlue"
+                    BorderThickness="0"
+                    Foreground="MintCream"
+                    FontSize="12"
+                    Cursor="Hand"
+                    Margin="10,20,5,0" 
+                    Content="Cancel"
+                    Click="btnCancel_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+        </StackPanel>
+
+        
+        
+
+        
 
     </Grid>
 </Window>
