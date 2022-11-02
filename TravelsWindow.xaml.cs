@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TravelPal.Managers;
@@ -40,11 +41,6 @@ namespace TravelPal
             this.Hide();
         }
 
-        private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ChangeButtons(true);
-        }
-
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             //AddTravelWindow addTravelWindow = new(travelManager, currentUser);
@@ -58,30 +54,51 @@ namespace TravelPal
 
         private void btnDetailsTravel_Click(object sender, RoutedEventArgs e)
         {
-            TravelDetailsWindow travelDetailsWindow = new(travelManager, currentUser, GetSelectedTravel());
-            travelDetailsWindow.Owner = this;
-            travelDetailsWindow.Show();
-            this.Hide();
+            try
+            {
+                TravelDetailsWindow travelDetailsWindow = new(travelManager, currentUser, GetSelectedTravel());
+                travelDetailsWindow.Owner = this;
+                travelDetailsWindow.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
         private Travel GetSelectedTravel()
         {
+            if (lvTravels.SelectedItem == null)
+            {
+                throw new Exception("Please select a travel in the list.");
+            }
+
             return (Travel)((ListViewItem)lvTravels.SelectedItem).Tag;
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-            Travel currentTravel = GetSelectedTravel();
-            //Users tar bort från egen lista här, och admin tar bort från temporära travelmanagers lista
-            currentUser.GetTravels().Remove(GetSelectedTravel());
-
-            //om admin, ta bort från userns lista med
-            if (currentUser.GetType().Name == "Admin")
+            try
             {
-                Admin admin = (Admin)currentUser;
-                admin.RemoveTravelFromUserList(currentTravel);
+
+                Travel currentTravel = GetSelectedTravel();
+                //Users tar bort från egen lista här, och admin tar bort från temporära travelmanagers lista
+                currentUser.GetTravels().Remove(GetSelectedTravel());
+
+                //om admin, ta bort från userns lista med
+                if (currentUser.GetType().Name == "Admin")
+                {
+                    Admin admin = (Admin)currentUser;
+                    admin.RemoveTravelFromUserList(currentTravel);
+                }
+                RefreshTravelList();
             }
-            RefreshTravelList();
-            ChangeButtons(false);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -102,21 +119,6 @@ namespace TravelPal
                 newItem.Tag = travel;
                 lvTravels.Items.Add(newItem);
             }
-            ChangeButtons(false);
-        }
-        private void ChangeButtons(bool toggle)
-        {
-            if (toggle)
-            {
-                btnDetailsTravel.Visibility = Visibility.Visible;
-                btnRemoveTravel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnDetailsTravel.Visibility = Visibility.Hidden;
-                btnRemoveTravel.Visibility = Visibility.Hidden;
-            }
-
         }
         private bool IsAdmin()
         {

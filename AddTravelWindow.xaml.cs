@@ -35,19 +35,26 @@ namespace TravelPal
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string inputDestination = tbDestination.Text;
-            int inputTravellers = Convert.ToInt32(tbTravellers.Text);
-            Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
+            try
+            {
+                string inputDestination = tbDestination.Text;
+                int inputTravellers = Convert.ToInt32(tbTravellers.Text);
+                Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
 
-            if (TripReason == "Vacation")
-            {
-                Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
-                AddNClose(vacation);
+                if (TripReason == "Vacation")
+                {
+                    Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
+                    AddNClose(vacation);
+                }
+                else if (TripReason == "Trip")
+                {
+                    Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
+                    AddNClose(trip);
+                }
             }
-            else if (TripReason == "Trip")
+            catch (Exception ex)
             {
-                Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
-                AddNClose(trip);
+                MessageBox.Show($"Something went wrong, please check all inputs.\n\n ({ex.Message})");
             }
         }
 
@@ -63,14 +70,14 @@ namespace TravelPal
             {
                 if (cbTripReason.SelectedItem.ToString() == "Vacation")
                 {
-                    lblTripType.Content = "All Inclusive";
+                    lblTripType.Content = "All Inclusive:";
                     chbxAllInclusive.Visibility = Visibility.Visible;
                     cbTripType.Visibility = Visibility.Hidden;
                     TripReason = "Vacation";
                 }
                 else if (cbTripReason.SelectedItem.ToString() == "Trip")
                 {
-                    lblTripType.Content = "Trip type";
+                    lblTripType.Content = "Trip type:";
                     cbTripType.Visibility = Visibility.Visible;
                     chbxAllInclusive.Visibility = Visibility.Hidden;
                     TripReason = "Trip";
@@ -111,7 +118,6 @@ namespace TravelPal
             {
                 travelDays++;
             }
-            lblDays.Content = travelDays;
             startDate = cldStart.SelectedDates[0];
             endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
         }

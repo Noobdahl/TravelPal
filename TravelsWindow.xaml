@@ -105,8 +105,7 @@
             Background="Transparent"
             Grid.Column="1"
             Grid.Row="2"
-            Grid.ColumnSpan="4"
-            SelectionChanged="lvTravels_SelectionChanged"/>
+            Grid.ColumnSpan="4"/>
 
         <!--Add Travel button-->
         <Button

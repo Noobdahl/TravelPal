@@ -57,20 +57,19 @@ namespace TravelPal
                 MessageBox.Show("Username must be atleast 3 characters.");
             else if (pbNewPassword.Password.Length < 5)
                 MessageBox.Show("Password must be atleast 5 characters.");
-            else if (pbNewPassword.Password != pbConfirmPasssword.Password)
+            else if (pbNewPassword.Password != pbConfirmPassword.Password)
                 MessageBox.Show("Passwords did not match.");
             else
             {
                 if (userManager.UpdateUsername(currentUser, tbUsername.Text))
                 {
-                    MessageBox.Show("User update successful!");
                     ReturnToTravelsWindow();
                 }
                 else
                     MessageBox.Show("This username is already taken.");
             }
             pbNewPassword.Clear();
-            pbConfirmPasssword.Clear();
+            pbConfirmPassword.Clear();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -80,7 +79,7 @@ namespace TravelPal
             lblNewPassword.Visibility = Visibility.Visible;
             pbNewPassword.Visibility = Visibility.Visible;
             lblConfirmPassword.Visibility = Visibility.Visible;
-            pbConfirmPasssword.Visibility = Visibility.Visible;
+            pbConfirmPassword.Visibility = Visibility.Visible;
             tbUsername.IsEnabled = true;
             cbCountry.IsEnabled = true;
         }
@@ -100,6 +99,18 @@ namespace TravelPal
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+        private void tbUsername_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            foreach (IUser u in userManager.Users)
+            {
+                if (u.UserName == tbUsername.Text && tbUsername.Text != currentUser.UserName)
+                {
+                    lblTaken.Visibility = Visibility.Visible;
+                }
+                else
+                    lblTaken.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
