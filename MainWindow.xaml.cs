@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
+using TravelPal.PackingList;
 using TravelPal.Travels;
 
 namespace TravelPal
@@ -20,29 +22,32 @@ namespace TravelPal
             InitializeComponent();
             userManager = new();
             travelManager = new();
+            List<IPackingListItem> fakeList = new();
+            OtherItem staff = new("Gandalfs stav", 1);
+            fakeList.Add(staff);
+
             Admin admin = new(travelManager, userManager);
             admin.IUser("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
 
-            //User gandalf = new();
-            //gandalf.IUser("Gandalf", "password", Countries.Sweden);
-            //userManager.AddUser(gandalf);
-            //Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, false);
-            //gandalf.GetTravels().Add(gandalfVac);
-            //Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, TripTypes.Work);
-            //gandalf.GetTravels().Add(gandalfTrip);
+            User gandalf = new();
+            gandalf.IUser("Gandalf", "password", Countries.Sweden);
+            userManager.AddUser(gandalf);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), false, fakeList);
+            gandalf.GetTravels().Add(gandalfVac);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), TripTypes.Work, fakeList);
+            gandalf.GetTravels().Add(gandalfTrip);
 
 
-            User user2 = new();
-            user2.IUser("qwe", "asd", Countries.Sweden);
-            userManager.AddUser(user2);
-
-            Vacation standard = new("Bofors", Countries.Sweden, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), true);
-            user2.GetTravels().Add(standard);
-            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), false);
-            user2.GetTravels().Add(gandalfVac);
-            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 2, new DateTime(2022, 11, 1), new DateTime(2022, 11, 2), TripTypes.Work);
-            user2.GetTravels().Add(gandalfTrip);
+            User qwe = new();
+            qwe.IUser("qwe", "asd", Countries.Sweden);
+            userManager.AddUser(qwe);
+            Vacation standard = new("Bofors", Countries.Sweden, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), true, fakeList);
+            qwe.GetTravels().Add(standard);
+            Vacation qwevac = new("Helsinki", Countries.Finland, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), false, fakeList);
+            qwe.GetTravels().Add(qwevac);
+            Trip qwetrip = new("Ullared", Countries.Sweden, 1, 2, new DateTime(2022, 11, 1), new DateTime(2022, 11, 2), TripTypes.Work, fakeList);
+            qwe.GetTravels().Add(qwetrip);
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)

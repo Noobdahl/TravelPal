@@ -20,6 +20,8 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -175,6 +177,13 @@
             Height="30"
             Width="100"
             Click="btnCancel_Click"/>
+
+        <ListView
+            Name="lvPacklist"
+            Grid.Column="4"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="4"/>
 
     </Grid>
 </Window>

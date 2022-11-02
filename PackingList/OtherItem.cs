@@ -13,8 +13,7 @@
 
         public string GetInfo()
         {
-            return $"";
-            //throw new NotImplementedException();
+            return $"{Quantity}x {Name}";
         }
     }
 }

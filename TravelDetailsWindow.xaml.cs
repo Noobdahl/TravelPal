@@ -8,6 +8,7 @@ using System.Windows.Input;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
+using TravelPal.PackingList;
 using TravelPal.Travels;
 
 namespace TravelPal
@@ -93,13 +94,13 @@ namespace TravelPal
                 //If it was Vacation, now create Trip
                 if (currentTravel.GetType().Name == "Vacation")
                 {
-                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
+                    Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList);
                     AddToLists(newTrip);
                 }
                 //If it was Trip, now create Vacation
                 else
                 {
-                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
+                    Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked, currentTravel.PackingList);
                     AddToLists(newVacation);
                 }
                 //Removing old travel
@@ -132,6 +133,11 @@ namespace TravelPal
         }
         private void FillInInformation()
         {
+            foreach (IPackingListItem item in currentTravel.PackingList)
+            {
+                lvPacklist.Items.Add(item.GetInfo());
+            }
+
             tbDestination.Text = currentTravel.Destination;
             cbCountry.SelectedIndex = (int)currentTravel.Country;
             if (currentTravel.GetType().Name == "Vacation")

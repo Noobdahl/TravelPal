@@ -13,8 +13,10 @@
 
         public string GetInfo()
         {
-            return $"";
-            //throw new NotImplementedException();
+            if (IsRequired)
+                return $"{Name} - Required!";
+            else
+                return $"{Name} - Not Required!";
         }
     }
 }

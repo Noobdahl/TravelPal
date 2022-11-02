@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,7 @@ using System.Windows.Input;
 using TravelPal.Enums;
 using TravelPal.Managers;
 using TravelPal.Models;
+using TravelPal.PackingList;
 using TravelPal.Travels;
 
 namespace TravelPal
@@ -37,18 +39,20 @@ namespace TravelPal
         {
             try
             {
+                List<IPackingListItem> newList = CreateList();
+
                 string inputDestination = tbDestination.Text;
                 int inputTravellers = Convert.ToInt32(tbTravellers.Text);
                 Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
 
                 if (TripReason == "Vacation")
                 {
-                    Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked);
+                    Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList);
                     AddNClose(vacation);
                 }
                 else if (TripReason == "Trip")
                 {
-                    Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem);
+                    Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList);
                     AddNClose(trip);
                 }
             }
@@ -56,6 +60,16 @@ namespace TravelPal
             {
                 MessageBox.Show($"Something went wrong, please check all inputs.\n\n ({ex.Message})");
             }
+        }
+
+        private List<IPackingListItem> CreateList()
+        {
+            List<IPackingListItem> nyLista = new();
+            foreach (ListViewItem item in lvInventory.Items)
+            {
+                nyLista.Add((IPackingListItem)item.Tag);
+            }
+            return nyLista;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -137,5 +151,69 @@ namespace TravelPal
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void btnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string input = tbInput.Text;
+                if ((bool)chbxDocument.IsChecked)
+                {
+                    //Skapa traveldocument
+                    bool isRequired = (bool)chbxRequired.IsChecked;
+                    TravelDocument travelDocument = new(input, isRequired);
+                    AddToListView(travelDocument);
+                }
+                else
+                {
+                    //Skapa otheritem
+                    int quantity = Convert.ToInt32(tbQuantity.Text);
+                    OtherItem otherItem = new(input, quantity);
+                    AddToListView(otherItem);
+                }
+
+
+                tbQuantity.Clear();
+                tbInput.Clear();
+                lblRequired.Visibility = Visibility.Hidden;
+                chbxRequired.Visibility = Visibility.Hidden;
+                lblQuantity.Visibility = Visibility.Visible;
+                tbQuantity.Visibility = Visibility.Visible;
+                chbxDocument.IsChecked = false;
+                chbxRequired.IsChecked = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong...");
+            }
+        }
+
+        private void chbxDocument_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)chbxDocument.IsChecked)
+            {
+                lblRequired.Visibility = Visibility.Visible;
+                chbxRequired.Visibility = Visibility.Visible;
+                lblQuantity.Visibility = Visibility.Hidden;
+                tbQuantity.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                lblRequired.Visibility = Visibility.Hidden;
+                chbxRequired.Visibility = Visibility.Hidden;
+                lblQuantity.Visibility = Visibility.Visible;
+                tbQuantity.Visibility = Visibility.Visible;
+            }
+        }
+        private void AddToListView(IPackingListItem newItem)
+        {
+            ListViewItem newListViewItem = new();
+            newListViewItem.Content = newItem.GetInfo();
+            newListViewItem.Tag = newItem;
+
+            lvInventory.Items.Add(newListViewItem);
+        }
     }
+
+
 }

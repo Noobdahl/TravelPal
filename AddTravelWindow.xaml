@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelPal - Add Travel" Height="785" Width="500 "
+        Title="TravelPal - Add Travel" Height="785" Width="800 "
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
@@ -18,6 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,6 +29,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        
+        <!--Left Stackpanel-->
         <StackPanel Width="250"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -213,5 +216,124 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
+        
+        <!--Right stackpanel-->
+
+        <StackPanel Width="250"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Orientation="Vertical"
+                    Margin="0,5,0,0">
+
+            <!--Travelers Label-->
+            <Label
+                Content="Input:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,70,0,0"/>
+
+            <!--Input textbox-->
+            <TextBox
+                Name="tbInput"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent" 
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="0,0,0,0"/>
+
+            <!--Cancel button-->
+            <Button
+                Name="btnAddItem"
+                Background="MediumSlateBlue"
+                BorderThickness="0"
+                Foreground="MintCream"
+                FontSize="12"
+                Cursor="Hand"
+                Margin="55,30,55,0" 
+                Content="Add Item"
+                Click="btnAddItem_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <!--Travelers Label-->
+            <Label
+                Content="Documents:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,70,0,0"/>
+            
+            <!--Documents checkbox-->
+            <CheckBox
+                Name="chbxDocument"
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Click="chbxDocument_Click"/>
+
+            <!--Required Label-->
+            <Label
+                Name="lblRequired"
+                Content="Required:"
+                Visibility="Hidden"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+            
+            <!--Required checkbox-->
+            <CheckBox
+                Name="chbxRequired"
+                Visibility="Hidden"
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"/>
+
+            <!--Quantity Label-->
+            <Label
+                Name="lblQuantity"
+                Content="Quantity:"
+                Foreground="MintCream"
+                FontSize="14"
+                FontWeight="Medium"
+                Margin="0,10,0,0"/>
+
+            <!--Quantity textbox-->
+            <TextBox
+                Name="tbQuantity"
+                FontSize="14"
+                FontWeight="Medium"
+                Background="Transparent" 
+                Foreground="MintCream"
+                CaretBrush="MediumSlateBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="0,0,0,2"
+                Height="28"
+                VerticalContentAlignment="Center"
+                Margin="0,0,0,0"/>
+
+            <!--Inventory list-->
+            <ListView
+                Name="lvInventory"
+                BorderThickness="2"
+                Background="Transparent"
+                Height="150"
+                Margin="0,15,0,0"/>
+
+        </StackPanel>
+
+
     </Grid>
 </Window>
