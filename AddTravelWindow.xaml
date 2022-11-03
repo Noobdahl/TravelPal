@@ -11,6 +11,7 @@
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">
+    <!--Main Grid-->
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/TravelPal;component/Images/registerBG.jpg"/>
@@ -25,7 +26,6 @@
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="*"/>
-
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -84,11 +84,10 @@
                 FontSize="14"
                 FontWeight="Medium"
                 Background="Transparent" 
-                SelectionChanged="cbCountry_SelectionChanged"/>
+                LostMouseCapture="cbCountry_LostMouseCapture"/>
 
 
-
-
+            <!--Grid inside left stackpanel-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -253,6 +252,7 @@
                 VerticalContentAlignment="Center"
                 Margin="5,0,0,5"/>
 
+            <!--Grid inside right stackpanel!-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

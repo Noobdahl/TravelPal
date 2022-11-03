@@ -11,6 +11,7 @@
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">
+    <!--Main Grid-->
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/TravelPal;component/Images/registerBG.jpg"/>
@@ -26,6 +27,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--StackPanel to line everything up in the middle-->
         <StackPanel Width="250"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -188,6 +190,8 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
+        
+        <!--Warning label is outside of stackpanel, placed with precision!-->
         <Label
             x:Name="lblTaken"
             Visibility="Hidden"

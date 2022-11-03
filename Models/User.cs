@@ -16,14 +16,12 @@ namespace TravelPal.Models
             UserName = username;
             Password = password;
             Location = location;
-            //throw new System.NotImplementedException();
         }
+
+        //Used to retrieve the Travels collected in this User
         public List<Travel> GetTravels()
         {
             return Travels;
         }
     }
 }
-
-
-//hur ska admins kunna ändra trip till vacation? de kan inte lägga till resor...

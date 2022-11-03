@@ -25,7 +25,8 @@ namespace TravelPal
         int travelDays = 0;
         DateTime startDate;
         DateTime endDate;
-        TravelDocument pass;
+        //Pass is created here for easy access, but not added to list until first interaction with combobox
+        TravelDocument pass = new("Passport", true);
         public AddTravelWindow(TravelManager tManager, IUser cUser)
         {
             InitializeComponent();
@@ -34,18 +35,27 @@ namespace TravelPal
             FillComboBoxes();
             cldStart.SelectionMode = CalendarSelectionMode.MultipleRange;
             cldStart.DisplayDateStart = (DateTime.Today);
+            cldStart.SelectedDate = (DateTime.Today);
         }
 
+        //Save button - TRIES to create new travel, catches exception based on some checks:
+        //If amount of travellers has letters, destination too few leters, it throws error
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (!Int32.TryParse(tbTravellers.Text, out int fisk))
+                    throw new Exception("Please enter travellers in digits only.");
+                else if (tbDestination.Text.Count() <= 0)
+                    throw new Exception("Please enter a destination.");
+                //Create new list from method, gets a list of IPackingListItems returned from the listview
                 List<IPackingListItem> newList = CreateList();
 
                 string inputDestination = tbDestination.Text;
                 int inputTravellers = Convert.ToInt32(tbTravellers.Text);
                 Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
 
+                //Checks what travel to create
                 if (TripReason == "Vacation")
                 {
                     Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList);
@@ -63,6 +73,7 @@ namespace TravelPal
             }
         }
 
+        //Called from save method, creates a new list from the items added to the listview and returns it
         private List<IPackingListItem> CreateList()
         {
             List<IPackingListItem> nyLista = new();
@@ -73,12 +84,14 @@ namespace TravelPal
             return nyLista;
         }
 
+        //Cancel button - Runs method to return to travelswindow
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ReturnToTravelsWindow();
             this.Close();
         }
 
+        //Combobox Tripreason changes - changes UI, shows checkboxes etc accordingly. Also sets "TripReason", which later helps creating the correct travel
         private void cbTripReason_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (cbTripReason.SelectedItem != null)
@@ -99,6 +112,10 @@ namespace TravelPal
                 }
             }
         }
+
+        //This is run from save method, adds the travel into the users list and the travelmanagers list.
+        //Then it runs a method in the ownerwindow (travelswindow) to refresh the listview there with the new travel added.
+        //Finally, closes this window
         private void AddNClose(Travel travel)
         {
             currentUser.GetTravels().Add(travel);
@@ -106,6 +123,8 @@ namespace TravelPal
             ((TravelsWindow)this.Owner).RefreshTravelList();
             ReturnToTravelsWindow();
         }
+
+        //Fills three comboboxes, two of them from enums Countries and TripTypes
         private void FillComboBoxes()
         {
             cbTripReason.Items.Add("Vacation");
@@ -126,17 +145,16 @@ namespace TravelPal
             }
         }
 
+        //Calendar change dates - runs when changing dates in calendar to update amount of days selected, and to find first and last day
         private void cldStart_SelectedDatesChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            travelDays = 0;
-            foreach (DateTime mySelectedDate in cldStart.SelectedDates)
-            {
-                travelDays++;
-            }
+            travelDays = cldStart.SelectedDates.Count();
             startDate = cldStart.SelectedDates[0];
             endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
             Mouse.Capture(null);
         }
+
+        //Finds the hidden TravelsWindow and shows it, then closes window
         private void ReturnToTravelsWindow()
         {
             foreach (Window window in Application.Current.Windows)
@@ -148,33 +166,43 @@ namespace TravelPal
             }
             this.Close();
         }
+
+        //This adds the function of moving the window around by dragging anywhere
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
 
+        //Add packinglist item - TRIES to create new item from user inputs, throws exception if it fails due to wrong input
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (tbInput.Text.Count() <= 0)
+                    throw new Exception("New Item input is empty.");
                 string input = tbInput.Text;
                 if ((bool)chbxDocument.IsChecked)
                 {
-                    //Skapa traveldocument
+                    //Create traveldocument
                     bool isRequired = (bool)chbxRequired.IsChecked;
                     TravelDocument travelDocument = new(input, isRequired);
                     AddToListView(travelDocument);
                 }
                 else
                 {
-                    //Skapa otheritem
-                    int quantity = Convert.ToInt32(tbQuantity.Text);
-                    OtherItem otherItem = new(input, quantity);
-                    AddToListView(otherItem);
+                    //Create otheritem
+                    if (Int32.TryParse(tbQuantity.Text, out int result))
+                    {
+                        OtherItem otherItem = new(input, result);
+                        AddToListView(otherItem);
+                    }
+                    else
+                        throw new Exception("Please enter Quantity with number");
+
                 }
 
-
+                //Resets UI
                 tbQuantity.Clear();
                 tbInput.Clear();
                 lblRequired.Visibility = Visibility.Hidden;
@@ -186,10 +214,11 @@ namespace TravelPal
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong...");
+                MessageBox.Show("Something went wrong!\n\n" + ex.Message);
             }
         }
 
+        //Checkbox document clicks runs this, changes UI based on if checked or not
         private void chbxDocument_Click(object sender, RoutedEventArgs e)
         {
             if ((bool)chbxDocument.IsChecked)
@@ -207,6 +236,8 @@ namespace TravelPal
                 tbQuantity.Visibility = Visibility.Visible;
             }
         }
+
+        //Converts recieved item to a listviewitem and adds it to the packingitem-listview
         private void AddToListView(IPackingListItem newItem)
         {
             ListViewItem newListViewItem = new();
@@ -216,9 +247,58 @@ namespace TravelPal
             lvInventory.Items.Add(newListViewItem);
         }
 
-        private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //Returns true if recieved enum Countries is also in enum EuropeanCountries (if country is in europe)
+        private bool IsCountryInEU(Countries checkC)
         {
+            foreach (EuropeanCountries c in Enum.GetValues(typeof(EuropeanCountries)))
+            {
+                if (checkC.ToString() == c.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        //This runs when mouse leaves combobox capture.
+        //It TRIES to check if user country is in europe and if destination-country is in europe, and runs RefreshPass-method with true/false
+        private void cbCountry_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                Countries userCountry = currentUser.Location;
+                Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
+
+                if (IsCountryInEU(userCountry))
+                {
+                    if (IsCountryInEU(inputCountry))
+                        RefreshPassStatus(false);
+                    else
+                        RefreshPassStatus(true);
+                }
+                else
+                    RefreshPassStatus(true);
+            }
+            catch
+            {
+            }
+        }
+
+        //Finds the passport in the listview
+        //If its not found, adds new passport with recieved bool
+        //If its found, update the items content with info from updated pass object
+        private void RefreshPassStatus(bool status)
+        {
+            pass.IsRequired = status;
+            foreach (ListViewItem item in lvInventory.Items)
+            {
+                if (item.Tag == pass)
+                {
+                    item.Content = pass.GetInfo();
+                    return;
+                }
+            }
+            AddToListView(pass);
         }
     }
 }

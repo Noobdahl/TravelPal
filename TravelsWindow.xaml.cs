@@ -23,16 +23,32 @@ namespace TravelPal
             travelManager = tManager;
             currentUser = userManager.SignedInUser;
             lblWelcome.Content = $"Welcome {currentUser.UserName}!";
+            //Uses method that returns true if user is admin, then removes Add Travel button (admins cannot add travels)
             if (IsAdmin())
                 btnAddTravel.Visibility = Visibility.Hidden;
             RefreshTravelList();
         }
 
+        //Help button - Shows box with instructions: HowTo
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clicka på saker", "HowTo TravelPal", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("" +
+                "Welcome to TravelPal!\n" +
+                "Remember all the travels you planned and dreamed of that never happened? " +
+                "Now theres a place to collect them, right here in TravelPal! \n" +
+                "Enter your worktrips and dream vacations here, and let them be remembered forever " +
+                "as a planned travel.\n" +
+                "\n" +
+                "Functions in TravelPal:\n" +
+                "Add Travel - Fill up your account with planned travels.\n\n" +
+                "Remove Travel - Changed your mind? Just select travel to delete and *poof*!\n\n" +
+                "Details - Lunge yourself deep into the detailed information about any of your planned travels.\n\n" +
+                "User - This button shows your information and gives you the option to change username, password and country of origin.\n\n" +
+                "Sign Out - Don't forget to sign out before leaving the computer,\n" +
+                "your wouldn't want anyone else to read about your travels, right?", "HowTo TravelPal", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        //User button - Opens user details window, sets owner to access methods in this window from detailswindow
         private void btnUser_Click(object sender, RoutedEventArgs e)
         {
             UserDetailsWindow userDetailsWindow = new(userManager, currentUser);
@@ -41,17 +57,16 @@ namespace TravelPal
             this.Hide();
         }
 
+        //Add Travel button - Opens add travel window, sets owner to access methods in this window from add travel window
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
-            //AddTravelWindow addTravelWindow = new(travelManager, currentUser);
-            //addTravelWindow.Show();
-
             AddTravelWindow addTravelWindowTest = new(travelManager, currentUser);
             addTravelWindowTest.Owner = this;
             addTravelWindowTest.Show();
             this.Hide();
         }
 
+        //Details button - TRIES to open details window, catches error if no travel is selected, also sets owner to access methods in this window from details window
         private void btnDetailsTravel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -67,6 +82,7 @@ namespace TravelPal
             }
         }
 
+        //Returns selected item in list as a travel, throws exception if no selection is made
         private Travel GetSelectedTravel()
         {
             if (lvTravels.SelectedItem == null)
@@ -77,16 +93,18 @@ namespace TravelPal
             return (Travel)((ListViewItem)lvTravels.SelectedItem).Tag;
         }
 
+        //Remove travel button - TRIES to remove travel, catches error i no travel is selected. 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
 
                 Travel currentTravel = GetSelectedTravel();
-                //Users tar bort från egen lista här, och admin tar bort från temporära travelmanagers lista
+                //Users removes from the users list, and admin removes from the list in the travelmanager.
+                //(Runs on "same" method, but acts different because they are IUsers)
                 currentUser.GetTravels().Remove(GetSelectedTravel());
 
-                //om admin, ta bort från userns lista med
+                //If user is admin, calls method that removes travel from the owner (real user)
                 if (currentUser.GetType().Name == "Admin")
                 {
                     Admin admin = (Admin)currentUser;
@@ -101,11 +119,14 @@ namespace TravelPal
 
         }
 
+        //Sign Out button - Shows Mainwindow and closes current window
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).Show();
             this.Close();
         }
+
+        //Clears travel-listview and repopulates it with the IUsers GetTravels(), acts different depending on if you are user or admin
         public void RefreshTravelList()
         {
             lvTravels.Items.Clear();
@@ -120,16 +141,22 @@ namespace TravelPal
                 lvTravels.Items.Add(newItem);
             }
         }
+
+        //Returns true if current user is Admin
         private bool IsAdmin()
         {
             if (currentUser.GetType().Name == "Admin")
                 return true;
             return false;
         }
+
+        //Updates welcome label with updated Username
         public void RefreshUser()
         {
             lblWelcome.Content = $"Welcome {currentUser.UserName}!";
         }
+
+        //This adds the function of moving the window around by dragging anywhere
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

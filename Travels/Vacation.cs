@@ -20,6 +20,8 @@ namespace TravelPal.Travels
         {
             return $"";
         }
+
+        //Overrided method to be able to set IsAllInclusive when adressing object as a IPackingListItem
         public override void SetAllInclusive(bool isAllInclusive)
         {
             IsAllInclusive = isAllInclusive;

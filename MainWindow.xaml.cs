@@ -22,34 +22,31 @@ namespace TravelPal
             InitializeComponent();
             userManager = new();
             travelManager = new();
-            List<IPackingListItem> fakeList = new();
-            OtherItem staff = new("Gandalfs stav", 1);
-            fakeList.Add(staff);
 
+            LoadPremadeAccounts();
+        }
+
+        //Create premade accounts - for convenience
+        private void LoadPremadeAccounts()
+        {
             Admin admin = new(travelManager, userManager);
             admin.IUser("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
-
+            //Making a temporary list to add the staff to all Gandalfs travels
+            List<IPackingListItem> fakeList = new();
+            OtherItem staff = new("Gandalfs stav", 1);
+            fakeList.Add(staff);
+            //Adding Gandalf
             User gandalf = new();
             gandalf.IUser("Gandalf", "password", Countries.Sweden);
             userManager.AddUser(gandalf);
-            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 1, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), false, fakeList);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), false, fakeList);
             gandalf.GetTravels().Add(gandalfVac);
-            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), TripTypes.Work, fakeList);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 4, new DateTime(2022, 11, 6), new DateTime(2022, 11, 9), TripTypes.Work, fakeList);
             gandalf.GetTravels().Add(gandalfTrip);
-
-
-            User qwe = new();
-            qwe.IUser("qwe", "asd", Countries.Sweden);
-            userManager.AddUser(qwe);
-            Vacation standard = new("Bofors", Countries.Sweden, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), true, fakeList);
-            qwe.GetTravels().Add(standard);
-            Vacation qwevac = new("Helsinki", Countries.Finland, 1, 3, new DateTime(2022, 11, 1), new DateTime(2022, 11, 3), false, fakeList);
-            qwe.GetTravels().Add(qwevac);
-            Trip qwetrip = new("Ullared", Countries.Sweden, 1, 2, new DateTime(2022, 11, 1), new DateTime(2022, 11, 2), TripTypes.Work, fakeList);
-            qwe.GetTravels().Add(qwetrip);
         }
 
+        //Register button - opens register window
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new(userManager);
@@ -57,6 +54,7 @@ namespace TravelPal
             this.Hide();
         }
 
+        //Login button - tries to sign in with the usermanager
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (userManager.SignInUser(tbUsername.Text, tbPassword.Password))
@@ -73,6 +71,7 @@ namespace TravelPal
             }
         }
 
+        //This adds the function of moving the window around by dragging anywhere
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

@@ -11,6 +11,7 @@
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Background="MediumSlateBlue">
+    <!--Main Grid-->
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
@@ -27,7 +28,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
+        <!--Left Stackpanel-->
         <StackPanel Width="250"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -84,6 +85,7 @@
                 FontWeight="Medium"
                 Background="Transparent"/>
 
+            <!--Grid inside left stackpanel!-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -193,8 +195,7 @@
         </StackPanel>
 
         
-
-
+        <!--Right Stackpanel-->
         <StackPanel Width="250"
             Grid.Row="1"
             Grid.Column="2"
@@ -229,6 +230,7 @@
                     Height="150"
                     Margin="30,20,30,0"/>
 
+            <!--Grid inside right stackpanel!-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -257,7 +259,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                
+
                 <!--Save button-->
                 <Button
                     Name="btnSave"
@@ -299,11 +301,5 @@
 
             </Grid>
         </StackPanel>
-
-        
-        
-
-        
-
     </Grid>
 </Window>

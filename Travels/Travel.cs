@@ -25,10 +25,13 @@ namespace TravelPal.Travels
             EndDate = endDate;
             PackingList = packingList;
         }
+        //Not used method - uses calendar function to measure how many days a travel is
         private int CalculateTravelDays()
         {
             return -1;
         }
+
+        //Two virtual methods that is overrided in both subclasses Trip and Vacation
         public virtual void SetAllInclusive(bool isAllInclusive)
         {
         }

@@ -9,8 +9,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        MouseDown="Window_MouseDown"
-        >
+        MouseDown="Window_MouseDown">
+    <!--Main Grid-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,6 +26,7 @@
             <ImageBrush ImageSource="/TravelPal;component/Images/loginBG.jpg"/>
         </Grid.Background>
 
+        <!--Main stackpanel for lining everything up in middle-->
         <StackPanel Width="250"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -120,8 +121,6 @@
                     </Style>
                 </Button.Resources>
             </Button>
-
         </StackPanel>
-        
     </Grid>
 </Window>

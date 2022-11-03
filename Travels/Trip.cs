@@ -19,6 +19,8 @@ namespace TravelPal.Travels
         {
             return $"";
         }
+
+        //Overrided method to be able to set Type when adressing object as a IPackingListItem
         public override void SetTripType(TripTypes type)
         {
             Type = type;

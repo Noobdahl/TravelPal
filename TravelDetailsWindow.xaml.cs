@@ -31,10 +31,18 @@ namespace TravelPal
             travelManager = tManager;
             currentUser = user;
             currentTravel = cTravel;
+
+            //Filling comboboxes
             FillComboBoxes();
+
+            //Filling in current info
             FillInInformation();
+
+            //Sets up calendar
             cldStart.SelectionMode = CalendarSelectionMode.MultipleRange;
             cldStart.DisplayDateStart = (DateTime.Today);
+
+            //Checks type of current travel, shows info accordingly
             if (currentTravel.GetType().Name == "Trip")
             {
                 lblTripType.Content = "Trip type";
@@ -47,14 +55,15 @@ namespace TravelPal
                 chbxAllInclusive.Visibility = Visibility.Visible;
                 cbTripType.Visibility = Visibility.Hidden;
             }
-
         }
 
+        //Cancel button - Calls method to return to travelswindow
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ReturnToTravelsWindow();
         }
 
+        //Edit button - Changes UI, shows save button and enables editing in inputboxes
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             tbDestination.IsEnabled = true;
@@ -68,18 +77,26 @@ namespace TravelPal
             cldStart.Visibility = Visibility.Visible;
         }
 
+        //Save button - TRIES to save new info, catches exception based on some checks:
+        //If amount of travellers has letters, destination too few leters, it throws error
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                currentTravel.Destination = tbDestination.Text;
+                if (!Int32.TryParse(tbTravellers.Text, out int fisk))
+                    throw new Exception("Please enter travellers in digits only.");
+                else if (tbDestination.Text.Count() <= 0)
+                    throw new Exception("Please enter a destination.");
+
+                //This info will always change, no matter what type of travel
                 currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
                 currentTravel.Travellers = Convert.ToInt32(tbTravellers.Text);
+                currentTravel.Destination = tbDestination.Text;
                 currentTravel.TravelDays = travelDays;
                 currentTravel.StartDate = startDate;
                 currentTravel.EndDate = endDate;
 
-                //If travel is same type, just change it
+                //If travel is same type as before, just change info
                 if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
                 {
                     if (currentTravel.GetType().Name == "Vacation")
@@ -91,6 +108,7 @@ namespace TravelPal
                         currentTravel.SetTripType((TripTypes)cbTripType.SelectedItem);
                     }
                 }
+                //But if a new type of travel is needed, Vacation -> Trip, or Trip -> Vacation
                 else
                 {
                     //If it was Vacation, now create Trip
@@ -109,6 +127,7 @@ namespace TravelPal
                     RemoveCurrentTravelFromLists();
 
                 }
+                //Finally, refresh other windows list and return to travel window
                 ((TravelsWindow)this.Owner).RefreshTravelList();
                 ReturnToTravelsWindow();
             }
@@ -120,6 +139,8 @@ namespace TravelPal
 
 
         }
+
+        //This is called to add the travel to the lists in both user and travelmanager
         private void AddToLists(Travel travel)
         {
             currentUser.GetTravels().Add(travel);
@@ -130,6 +151,8 @@ namespace TravelPal
                 admin.ReplaceTravelAtUserList(currentTravel, travel);
             }
         }
+
+        //This is called to remove the travel from the lists, if Admin also remove from the user
         private void RemoveCurrentTravelFromLists()
         {
             currentUser.GetTravels().Remove(currentTravel);
@@ -139,15 +162,19 @@ namespace TravelPal
                 admin.RemoveTravelFromUserList(currentTravel);
             }
         }
+
+        //Fills all inputs and sets comboboxes to the information from current selected travel
         private void FillInInformation()
         {
+            //Fills the listview with items from packinglist
             foreach (IPackingListItem item in currentTravel.PackingList)
             {
                 lvPacklist.Items.Add(item.GetInfo());
             }
-
             tbDestination.Text = currentTravel.Destination;
             cbCountry.SelectedIndex = (int)currentTravel.Country;
+
+            //Checks type of travel to change UI and fill in the right boxes
             if (currentTravel.GetType().Name == "Vacation")
             {
                 cbTripReason.SelectedIndex = 0;
@@ -165,6 +192,8 @@ namespace TravelPal
             lblStartDate.Content = "Starting date: " + currentTravel.StartDate;
             lblEndDate.Content = "Ending date: " + currentTravel.EndDate;
         }
+
+        //Fills three comboboxes, two of them from enums Countries and TripTypes
         private void FillComboBoxes()
         {
             cbTripReason.Items.Add("Vacation");
@@ -185,6 +214,7 @@ namespace TravelPal
             }
         }
 
+        //Combobox Tripreason changes - changes UI, shows checkboxes etc accordingly. Also sets "TripReason", which later helps creating the correct travel
         private void cbTripReason_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (cbTripReason.SelectedItem != null)
@@ -205,6 +235,8 @@ namespace TravelPal
                 }
             }
         }
+
+        //Finds the hidden TravelsWindow and shows it, then closes window
         private void ReturnToTravelsWindow()
         {
             foreach (Window window in Application.Current.Windows)
@@ -217,25 +249,26 @@ namespace TravelPal
             this.Close();
         }
 
+        //Calendar change dates - runs when changing dates in calendar to update amount of days selected, and to find first and last day
         private void cldStart_SelectedDatesChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            travelDays = 0;
-            foreach (DateTime mySelectedDate in cldStart.SelectedDates)
-            {
-                travelDays++;
-            }
+            travelDays = cldStart.SelectedDates.Count();
             startDate = cldStart.SelectedDates[0];
             endDate = cldStart.SelectedDates[cldStart.SelectedDates.Count() - 1];
+            //Setting labels after each selection, to show current start and end dates in real time
             SetDateLabels();
+            //This is to avoid getting the mouse selection "stuck" in calendar after using it
             Mouse.Capture(null);
         }
 
+        //This changes labels of the start and end date, runs from calendar selected dates method
         private void SetDateLabels()
         {
             lblStartDate.Content = "Starting date: " + startDate;
             lblEndDate.Content = "Ending date: " + endDate;
         }
 
+        //This adds the function of moving the window around by dragging anywhere
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

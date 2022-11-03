@@ -24,9 +24,10 @@ namespace TravelPal.Models
             Password = password;
             Location = location;
         }
-
+        //Admin gets the travels of all users, not including self (since admins dont create travels)
         public List<Travel> GetTravels()
         {
+            //I use the travelManagers list of travels as a temporary list that gets cleared and filled
             travelManager.Travels.Clear();
             foreach (IUser user in GetUsers())
             {
@@ -41,6 +42,8 @@ namespace TravelPal.Models
             }
             return travelManager.Travels;
         }
+
+        //Gets all users that is added to the list of users in the usermanager
         public List<IUser> GetUsers()
         {
             return userManager.Users;
