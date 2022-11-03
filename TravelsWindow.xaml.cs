@@ -37,7 +37,7 @@ namespace TravelPal
                 "Remember all the travels you planned and dreamed of that never happened? " +
                 "Now theres a place to collect them, right here in TravelPal! \n" +
                 "Enter your worktrips and dream vacations here, and let them be remembered forever " +
-                "as a planned travel.\n" +
+                "as planned travels.\n" +
                 "\n" +
                 "Functions in TravelPal:\n" +
                 "Add Travel - Fill up your account with planned travels.\n\n" +
