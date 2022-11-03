@@ -17,9 +17,7 @@ namespace TravelPal.Managers
                 return true;
             }
             else
-            {
                 return false;
-            }
         }
 
 
@@ -49,9 +47,7 @@ namespace TravelPal.Managers
             foreach (IUser u in Users)
             {
                 if (u.UserName == newName)
-                {
                     return false;
-                }
             }
             return true;
         }
