@@ -189,8 +189,8 @@ namespace TravelPal
             }
             tbTravellers.Text = currentTravel.Travellers.ToString();
             travelDays = currentTravel.TravelDays;
-            lblStartDate.Content = "Starting date: " + currentTravel.StartDate;
-            lblEndDate.Content = "Ending date: " + currentTravel.EndDate;
+            lblStartDate.Content = "Starting date: " + currentTravel.StartDate.ToString("dd/MM/yyyy");
+            lblEndDate.Content = "Ending date: " + currentTravel.EndDate.ToString("dd/MM/yyyy");
         }
 
         //Fills three comboboxes, two of them from enums Countries and TripTypes
@@ -264,8 +264,8 @@ namespace TravelPal
         //This changes labels of the start and end date, runs from calendar selected dates method
         private void SetDateLabels()
         {
-            lblStartDate.Content = "Starting date: " + startDate;
-            lblEndDate.Content = "Ending date: " + endDate;
+            lblStartDate.Content = "Starting date: " + startDate.ToString("dd/MM/yyyy");
+            lblEndDate.Content = "Ending date: " + endDate.ToString("dd/MM/yyyy");
         }
 
         //This adds the function of moving the window around by dragging anywhere

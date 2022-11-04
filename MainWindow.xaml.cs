@@ -37,6 +37,7 @@ namespace TravelPal
             OtherItem staff = new("Gandalfs stav", 1);
             fakeList.Add(staff);
             //Adding Gandalf
+
             User gandalf = new();
             gandalf.IUser("Gandalf", "password", Countries.Sweden);
             userManager.AddUser(gandalf);

@@ -53,18 +53,25 @@ namespace TravelPal
 
                 string inputDestination = tbDestination.Text;
                 int inputTravellers = Convert.ToInt32(tbTravellers.Text);
-                Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
-
-                //Checks what travel to create
-                if (TripReason == "Vacation")
+                if (inputTravellers <= 0)
                 {
-                    Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList);
-                    AddNClose(vacation);
+                    throw new Exception("Invalid amount of travellers");
                 }
-                else if (TripReason == "Trip")
+                else
                 {
-                    Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList);
-                    AddNClose(trip);
+                    Countries inputCountry = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
+
+                    //Checks what travel to create
+                    if (TripReason == "Vacation")
+                    {
+                        Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList);
+                        AddNClose(vacation);
+                    }
+                    else if (TripReason == "Trip")
+                    {
+                        Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList);
+                        AddNClose(trip);
+                }
                 }
             }
             catch (Exception ex)
