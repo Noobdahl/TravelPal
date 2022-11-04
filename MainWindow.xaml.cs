@@ -34,8 +34,10 @@ namespace TravelPal
             userManager.AddUser(admin);
             //Making a temporary list to add the staff to all Gandalfs travels
             List<IPackingListItem> fakeList = new();
-            OtherItem staff = new("Gandalfs stav", 1);
+            OtherItem staff = new("Gandalfs staff", 1);
+            TravelDocument pass = new("Passport", true);
             fakeList.Add(staff);
+            fakeList.Add(pass);
             //Adding Gandalf
 
             User gandalf = new();

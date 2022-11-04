@@ -31,6 +31,7 @@ namespace TravelPal
             travelManager = tManager;
             currentUser = user;
             currentTravel = cTravel;
+            lvPacklist.IsEnabled = false;
 
             //Filling comboboxes
             FillComboBoxes();
@@ -43,7 +44,7 @@ namespace TravelPal
             cldStart.DisplayDateStart = (DateTime.Today);
 
             //Checks type of current travel, shows info accordingly
-            if (currentTravel.GetType().Name == "Trip")
+            if (currentTravel is Trip)
             {
                 lblTripType.Content = "Trip type";
                 cbTripType.Visibility = Visibility.Visible;
@@ -92,6 +93,9 @@ namespace TravelPal
                 int inputTravellers = Convert.ToInt32(tbTravellers.Text);
                 if (inputTravellers <= 0)
                     throw new Exception("Invalid amount of travellers");
+                if (cbTripReason.SelectedItem.ToString() == "Trip" && cbTripType.SelectedItem == null)
+                    throw new Exception("Please enter trip type.");
+
 
                 //This info will always change, no matter what type of travel
                 currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));
@@ -104,7 +108,7 @@ namespace TravelPal
                 //If travel is same type as before, just change info
                 if (currentTravel.GetType().Name == cbTripReason.SelectedItem.ToString())
                 {
-                    if (currentTravel.GetType().Name == "Vacation")
+                    if (currentTravel is Vacation)
                     {
                         currentTravel.SetAllInclusive((bool)chbxAllInclusive.IsChecked);
                     }
@@ -117,7 +121,7 @@ namespace TravelPal
                 else
                 {
                     //If it was Vacation, now create Trip
-                    if (currentTravel.GetType().Name == "Vacation")
+                    if (currentTravel is Vacation)
                     {
                         Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList, currentUser);
                         AddToLists(newTrip);
@@ -180,7 +184,7 @@ namespace TravelPal
             cbCountry.SelectedIndex = (int)currentTravel.Country;
 
             //Checks type of travel to change UI and fill in the right boxes
-            if (currentTravel.GetType().Name == "Vacation")
+            if (currentTravel is Vacation)
             {
                 cbTripReason.SelectedIndex = 0;
                 Vacation vac = (Vacation)currentTravel;

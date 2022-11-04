@@ -36,6 +36,8 @@ namespace TravelPal
             cldStart.SelectionMode = CalendarSelectionMode.MultipleRange;
             cldStart.DisplayDateStart = (DateTime.Today);
             cldStart.SelectedDate = (DateTime.Today);
+            cbCountry.SelectedIndex = 0;
+            cbTripReason.SelectedIndex = 0;
         }
 
         //Save button - TRIES to create new travel, catches exception based on some checks:
@@ -48,6 +50,8 @@ namespace TravelPal
                     throw new Exception("Please enter travellers in digits only.");
                 else if (tbDestination.Text.Count() <= 0)
                     throw new Exception("Please enter a destination.");
+                else if (cbTripReason.SelectedItem.ToString() == "Trip" && cbTripType.SelectedItem == null)
+                    throw new Exception("Please enter trip type.");
                 //Create new list from method, gets a list of IPackingListItems returned from the listview
                 List<IPackingListItem> newList = CreateList();
 
@@ -71,7 +75,7 @@ namespace TravelPal
                     {
                         Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList, currentUser);
                         AddNClose(trip);
-                }
+                    }
                 }
             }
             catch (Exception ex)
