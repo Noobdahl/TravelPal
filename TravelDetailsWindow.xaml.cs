@@ -75,6 +75,8 @@ namespace TravelPal
             btnSave.Visibility = Visibility.Visible;
             chbxAllInclusive.IsEnabled = true;
             cldStart.Visibility = Visibility.Visible;
+            btnEdit.IsDefault = false;
+            btnSave.IsDefault = true;
         }
 
         //Save button - TRIES to save new info, catches exception based on some checks:
@@ -87,6 +89,9 @@ namespace TravelPal
                     throw new Exception("Please enter travellers in digits only.");
                 else if (tbDestination.Text.Count() <= 0)
                     throw new Exception("Please enter a destination.");
+                int inputTravellers = Convert.ToInt32(tbTravellers.Text);
+                if (inputTravellers <= 0)
+                    throw new Exception("Invalid amount of travellers");
 
                 //This info will always change, no matter what type of travel
                 currentTravel.Country = (Countries)Enum.Parse(typeof(Countries), cbCountry.Text.Replace(" ", "_"));

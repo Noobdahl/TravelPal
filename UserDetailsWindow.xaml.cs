@@ -90,6 +90,8 @@ namespace TravelPal
             pbConfirmPassword.Visibility = Visibility.Visible;
             tbUsername.IsEnabled = true;
             cbCountry.IsEnabled = true;
+            btnEdit.IsDefault = false;
+            btnSave.IsDefault = true;
         }
 
         //Finds the hidden TravelsWindow, shows it and runs a method (RefreshUser) to refresh userdetail in travelswindow

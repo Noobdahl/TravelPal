@@ -245,6 +245,7 @@
                 <!--Edit button-->
                 <Button
                     Name="btnEdit"
+                    IsDefault="True"
                     Background="MediumSlateBlue"
                     BorderThickness="0"
                     Foreground="MintCream"
@@ -263,6 +264,7 @@
                 <!--Save button-->
                 <Button
                     Name="btnSave"
+                    IsDefault="False"
                     Visibility="Hidden"
                     Grid.Column="0"
                     Background="MediumSlateBlue"

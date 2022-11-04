@@ -89,6 +89,7 @@
             <!--Login button-->
             <Button
                 Name="btnLogin"
+                IsDefault="True"
                 Background="MediumSlateBlue"
                 BorderThickness="0"
                 Foreground="MintCream"

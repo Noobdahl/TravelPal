@@ -181,6 +181,7 @@
             <!--Save button-->
             <Button
                 Name="btnSave"
+                IsDefault="True"
                 Background="MediumSlateBlue"
                 BorderThickness="0"
                 Foreground="MintCream"
