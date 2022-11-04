@@ -15,9 +15,12 @@ namespace TravelPal.Travels
         {
             Type = type;
         }
-        public string GetInfo()
+        public override string GetInfo()
         {
-            return $"";
+            if (base.TravelDays == 1)
+                return $"(Trip) {base.Country} for {base.TravelDays} day";
+            else
+                return $"(Trip) {base.Country} for {base.TravelDays} days";
         }
 
         //Overrided method to be able to set Type when adressing object as a IPackingListItem

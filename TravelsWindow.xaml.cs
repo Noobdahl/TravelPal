@@ -133,10 +133,7 @@ namespace TravelPal
             foreach (Travel travel in currentUser.GetTravels())
             {
                 ListViewItem newItem = new();
-                if (travel.TravelDays == 1)
-                    newItem.Content = $"{travel.Country} for {travel.TravelDays} day";
-                else
-                    newItem.Content = $"{travel.Country} for {travel.TravelDays} days";
+                newItem.Content = travel.GetInfo();
                 newItem.Tag = travel;
                 lvTravels.Items.Add(newItem);
             }

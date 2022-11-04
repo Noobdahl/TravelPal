@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TravelPal.Enums;
 using TravelPal.PackingList;
 
@@ -16,9 +17,12 @@ namespace TravelPal.Travels
         {
             IsAllInclusive = isAllInclusive;
         }
-        public string GetInfo()
+        public override string GetInfo()
         {
-            return $"";
+            if (base.TravelDays == 1)
+                return $"(Vacation) {base.Country} for {base.TravelDays} day";
+            else    
+                return $"(Vacation) {base.Country} for {base.TravelDays} days";
         }
 
         //Overrided method to be able to set IsAllInclusive when adressing object as a IPackingListItem

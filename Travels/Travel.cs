@@ -25,6 +25,11 @@ namespace TravelPal.Travels
             EndDate = endDate;
             PackingList = packingList;
         }
+
+        public virtual string GetInfo()
+        {
+            return "";
+        }
         //Not used method - uses calendar function to measure how many days a travel is
         private int CalculateTravelDays()
         {
