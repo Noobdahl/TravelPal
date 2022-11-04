@@ -114,13 +114,13 @@ namespace TravelPal
                     //If it was Vacation, now create Trip
                     if (currentTravel.GetType().Name == "Vacation")
                     {
-                        Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList);
+                        Trip newTrip = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (TripTypes)cbTripType.SelectedItem, currentTravel.PackingList, currentUser);
                         AddToLists(newTrip);
                     }
                     //If it was Trip, now create Vacation
                     else
                     {
-                        Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked, currentTravel.PackingList);
+                        Vacation newVacation = new(currentTravel.Destination, currentTravel.Country, currentTravel.Travellers, 1, startDate, endDate, (bool)chbxAllInclusive.IsChecked, currentTravel.PackingList, currentUser);
                         AddToLists(newVacation);
                     }
                     //Removing old travel

@@ -41,9 +41,9 @@ namespace TravelPal
             User gandalf = new();
             gandalf.IUser("Gandalf", "password", Countries.Sweden);
             userManager.AddUser(gandalf);
-            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), false, fakeList);
+            Vacation gandalfVac = new("Helsinki", Countries.Finland, 1, 5, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), false, fakeList, gandalf);
             gandalf.GetTravels().Add(gandalfVac);
-            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, new DateTime(2022, 11, 6), new DateTime(2022, 11, 6), TripTypes.Work, fakeList);
+            Trip gandalfTrip = new("Ullared", Countries.Sweden, 1, 1, new DateTime(2022, 11, 6), new DateTime(2022, 11, 6), TripTypes.Work, fakeList, gandalf);
             gandalf.GetTravels().Add(gandalfTrip);
         }
 

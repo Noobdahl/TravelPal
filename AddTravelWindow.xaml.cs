@@ -64,12 +64,12 @@ namespace TravelPal
                     //Checks what travel to create
                     if (TripReason == "Vacation")
                     {
-                        Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList);
+                        Vacation vacation = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (bool)chbxAllInclusive.IsChecked, newList, currentUser);
                         AddNClose(vacation);
                     }
                     else if (TripReason == "Trip")
                     {
-                        Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList);
+                        Trip trip = new(inputDestination, inputCountry, inputTravellers, travelDays, startDate, endDate, (TripTypes)cbTripType.SelectedItem, newList, currentUser);
                         AddNClose(trip);
                 }
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TravelPal.Enums;
+using TravelPal.Models;
 using TravelPal.PackingList;
 
 namespace TravelPal.Travels
@@ -14,8 +15,9 @@ namespace TravelPal.Travels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int TravelDays { get; set; }
+        public IUser Owner { get; set; }
 
-        public Travel(string destination, Countries country, int travellers, int travelDays, DateTime startDate, DateTime endDate, List<IPackingListItem> packingList)
+        public Travel(string destination, Countries country, int travellers, int travelDays, DateTime startDate, DateTime endDate, List<IPackingListItem> packingList, IUser owner)
         {
             Destination = destination;
             Country = country;
@@ -24,6 +26,7 @@ namespace TravelPal.Travels
             StartDate = startDate;
             EndDate = endDate;
             PackingList = packingList;
+            Owner = owner;
         }
 
         public virtual string GetInfo()
